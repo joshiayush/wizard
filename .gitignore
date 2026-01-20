@@ -1,1 +1,7 @@
 .vscode
+
+# python cache
+__pycache__
+
+# poetry
+poetry.lock
