@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood Fill - BFS</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../index.html" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Flood Fill</h1>
+        <p class="description">Fill connected pixels with a new color using BFS traversal</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>Grid (rows separated by ;):</label>
+                <input type="text" id="gridInput" value="1,1,1;1,1,0;1,0,1" placeholder="1,1,1;1,1,0;1,0,1" style="width: 200px;">
+            </div>
+            <div class="input-group">
+                <label>Start (sr, sc):</label>
+                <input type="text" id="startInput" value="1,1" placeholder="1,1" style="width: 60px;">
+            </div>
+            <div class="input-group">
+                <label>New Color:</label>
+                <input type="number" id="colorInput" value="2" min="0" max="9" style="width: 50px;">
+            </div>
+            <button class="btn-random" id="randomBtn">Random</button>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label>Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="500">
+            </div>
+        </div>
+
+        <div class="main-content">
+        <div class="visualization">
+            <div class="section-title">Image Grid</div>
+            <div class="grid-container" id="gridContainer"></div>
+
+            <div class="info-panel">
+                <div class="info-box">
+                    <h3>Current Cell</h3>
+                    <div class="info-value" id="currentCell">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Original Color</h3>
+                    <div class="info-value" id="originalColor">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>New Color</h3>
+                    <div class="info-value" id="newColor">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Queue Size</h3>
+                    <div class="info-value" id="queueSize">0</div>
+                </div>
+            </div>
+
+            <div class="queue-display">
+                <div class="section-title">BFS Queue</div>
+                <div class="queue" id="queueDisplay">
+                    <span class="empty-text">Empty</span>
+                </div>
+            </div>
+
+            <div class="status" id="status">
+                Click "Step" or "Play" to start the visualization
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color original-legend"></div>
+                    <span>Original Color</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color new-legend"></div>
+                    <span>New Color</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color current-legend"></div>
+                    <span>Current</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color queue-legend"></div>
+                    <span>In Queue</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-panel">
+            <div class="section-title">Python Code - BFS Approach</div>
+            <div class="code-line" id="code-0">
+                <span class="code-variable">original_color</span> = image[sr][sc]
+            </div>
+            <div class="code-line" id="code-1">
+                <span class="code-variable">queue</span> = deque([(sr, sc)])
+            </div>
+            <div class="code-line" id="code-2">
+                <span class="code-keyword">while</span> <span class="code-function">len</span>(queue) > <span class="code-number">0</span>:
+            </div>
+            <div class="code-line" id="code-3">
+                &nbsp;&nbsp;&nbsp;&nbsp;i, j = queue.<span class="code-function">popleft</span>()
+            </div>
+            <div class="code-line" id="code-4">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> in_bounds(i, j) <span class="code-keyword">and</span> image[i][j] == original_color:
+            </div>
+            <div class="code-line" id="code-5">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if not</span> visited[i][j]:
+            </div>
+            <div class="code-line" id="code-6">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visited[i][j] = <span class="code-keyword">True</span>
+            </div>
+            <div class="code-line" id="code-7">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image[i][j] = color <span class="code-comment"># fill with new color</span>
+            </div>
+            <div class="code-line" id="code-8">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> di, dj <span class="code-keyword">in</span> directions:
+            </div>
+            <div class="code-line" id="code-9">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queue.<span class="code-function">append</span>((i+di, j+dj))
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
