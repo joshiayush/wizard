@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Algorithm Visualizations</title>
+    <link rel="stylesheet" href="shared/css/main.css">
+    <style>
+        .hero {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.1em;
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .categories {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .category {
+            background: #1e1e3f;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .category h2 {
+            color: #00d9ff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-icon {
+            font-size: 1.5em;
+        }
+
+        .algorithms {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .algo-card {
+            background: #2a2a4a;
+            border-radius: 10px;
+            padding: 20px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .algo-card:hover {
+            border-color: #00d9ff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 217, 255, 0.2);
+        }
+
+        .algo-card h3 {
+            color: #fff;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .algo-card p {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 12px;
+        }
+
+        .algo-tag {
+            display: inline-block;
+            background: #1a1a2e;
+            color: #00d9ff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75em;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .footer a {
+            color: #00d9ff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>DSA Algorithm Visualizations</h1>
+            <p>Interactive step-by-step visualizations of common data structures and algorithms. Watch how they work, understand the logic, and learn by seeing.</p>
+        </div>
+
+        <div class="categories">
+            <!-- Arrays -->
+            <div class="category">
+                <h2><span class="category-icon">[]</span> Arrays</h2>
+                <div class="algorithms">
+                    <a href="arrays/two-sum/index.html" class="algo-card">
+                        <h3>Two Sum</h3>
+                        <p>Find two numbers that add up to a target using a hashmap approach.</p>
+                        <span class="algo-tag">HashMap</span>
+                    </a>
+                    <a href="arrays/sort-colors/index.html" class="algo-card">
+                        <h3>Sort Colors</h3>
+                        <p>Sort an array of 0s, 1s, and 2s in-place using three pointers.</p>
+                        <span class="algo-tag">Dutch National Flag</span>
+                    </a>
+                    <a href="arrays/maximum-subarray/index.html" class="algo-card">
+                        <h3>Maximum Subarray</h3>
+                        <p>Find the contiguous subarray with the largest sum.</p>
+                        <span class="algo-tag">Kadane's Algorithm</span>
+                    </a>
+                    <a href="arrays/best-time-to-buy-and-sell-stock/index.html" class="algo-card">
+                        <h3>Best Time to Buy and Sell Stock</h3>
+                        <p>Maximize profit by finding the best buy and sell days.</p>
+                        <span class="algo-tag">Single Pass</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Strings -->
+            <div class="category">
+                <h2><span class="category-icon">" "</span> Strings</h2>
+                <div class="algorithms">
+                    <a href="strings/kmp/index.html" class="algo-card">
+                        <h3>KMP Pattern Matching</h3>
+                        <p>Find a pattern in text efficiently using prefix table.</p>
+                        <span class="algo-tag">Knuth-Morris-Pratt</span>
+                    </a>
+                    <a href="strings/longest-palindromic-substring/index.html" class="algo-card">
+                        <h3>Longest Palindromic Substring</h3>
+                        <p>Find the longest palindrome within a string.</p>
+                        <span class="algo-tag">Brute Force</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Matrix -->
+            <div class="category">
+                <h2><span class="category-icon">#</span> Matrix</h2>
+                <div class="algorithms">
+                    <a href="matrix/number-of-islands/index.html" class="algo-card">
+                        <h3>Number of Islands</h3>
+                        <p>Count distinct islands in a 2D grid using graph traversal.</p>
+                        <span class="algo-tag">DFS / BFS</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Built for learning. <a href="https://github.com" target="_blank">View on GitHub</a></p>
+        </div>
+    </div>
+</body>
+</html>

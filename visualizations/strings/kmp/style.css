@@ -1,0 +1,122 @@
+/* KMP Pattern Matching - Algorithm-specific styles */
+
+/* Pattern wrapper for alignment */
+.pattern-wrapper {
+    position: relative;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.string-container {
+    transition: all 0.3s ease;
+}
+
+/* Character box states */
+.char-box.match {
+    border-color: #00ff88;
+    background: #1a3a2a;
+}
+
+.char-box.mismatch {
+    border-color: #ff4444;
+    background: #3a1a1a;
+    animation: shake 0.3s ease;
+}
+
+.char-box.matched {
+    border-color: #00d9ff;
+    background: #1a2a3a;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Pi table styles */
+.data-table {
+    margin: 0 auto;
+}
+
+.data-table th,
+.data-table td {
+    min-width: 40px;
+}
+
+#piChars td {
+    background: #2a2a4a;
+    color: #00d9ff;
+    font-weight: bold;
+}
+
+#piValues td {
+    background: #1e1e3f;
+    color: #fff;
+}
+
+#piValues td.highlight {
+    background: #3a3a2a;
+    color: #ffaa00;
+    font-weight: bold;
+}
+
+/* Legend colors */
+.legend-color.match {
+    border-color: #00ff88;
+    background: #1a3a2a;
+}
+
+.legend-color.mismatch {
+    border-color: #ff4444;
+    background: #3a1a1a;
+}
+
+/* Info panel layout */
+.info-panel {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .char-box {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+}
+
+/* Jump animation for j pointer */
+@keyframes jump {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.jumping {
+    animation: jump 0.3s ease;
+}
+
+/* Pointer indicators */
+.pointer-i, .pointer-j {
+    position: absolute;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pointer-i {
+    color: #00d9ff;
+    top: -25px;
+}
+
+.pointer-j {
+    color: #ffaa00;
+    bottom: -25px;
+}

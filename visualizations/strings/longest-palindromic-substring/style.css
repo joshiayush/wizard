@@ -1,0 +1,147 @@
+/* Longest Palindromic Substring - Algorithm-specific styles */
+
+/* Character box states */
+.char-box.in-range {
+    border-color: #00d9ff;
+    background: #1a2a3a;
+}
+
+.char-box.palindrome {
+    border-color: #00ff88;
+    background: #1a3a2a;
+    animation: pulse 0.5s ease;
+}
+
+.char-box.longest {
+    border-color: #ff79c6;
+    background: #3a1a3a;
+    box-shadow: 0 0 10px rgba(255, 121, 198, 0.5);
+}
+
+.char-box.checking {
+    border-color: #ffaa00;
+    background: #3a3a2a;
+}
+
+/* Substring display */
+.substring-display {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.substring-box {
+    display: inline-block;
+    padding: 15px 30px;
+    background: #2a2a4a;
+    border: 2px solid #444;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+    min-width: 100px;
+    transition: all 0.3s ease;
+}
+
+.substring-box.is-palindrome {
+    border-color: #00ff88;
+    background: #1a3a2a;
+}
+
+.substring-box.not-palindrome {
+    border-color: #ff4444;
+    background: #3a1a1a;
+}
+
+.palindrome-check {
+    font-size: 14px;
+    color: #888;
+    margin-top: 10px;
+}
+
+.palindrome-check.yes {
+    color: #00ff88;
+}
+
+.palindrome-check.no {
+    color: #ff4444;
+}
+
+/* Found palindromes list */
+.found-palindromes {
+    margin: 20px 0;
+}
+
+.palindrome-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    min-height: 40px;
+}
+
+.palindrome-item {
+    background: #1a3a2a;
+    border: 1px solid #00ff88;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    animation: fadeIn 0.3s ease;
+}
+
+.palindrome-item.longest {
+    background: #3a1a3a;
+    border-color: #ff79c6;
+    box-shadow: 0 0 10px rgba(255, 121, 198, 0.3);
+}
+
+.empty-text {
+    color: #666;
+}
+
+/* Legend colors */
+.legend-color.in-range {
+    border-color: #00d9ff;
+    background: #1a2a3a;
+}
+
+.legend-color.palindrome {
+    border-color: #00ff88;
+    background: #1a3a2a;
+}
+
+.legend-color.longest {
+    border-color: #ff79c6;
+    background: #3a1a3a;
+}
+
+/* Info box for longest */
+.info-box.longest-box {
+    border: 1px solid #ff79c6;
+}
+
+.info-box.longest-box h3 {
+    color: #ff79c6;
+}
+
+/* Info panel layout */
+.info-panel {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Pulse animation for palindrome found */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}

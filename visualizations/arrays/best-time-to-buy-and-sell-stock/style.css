@@ -1,0 +1,141 @@
+/* Best Time to Buy and Sell Stock - Algorithm-specific styles */
+
+/* Chart container */
+.chart-container {
+    padding: 20px 0;
+    overflow-x: auto;
+}
+
+.bar-chart {
+    height: 220px;
+    padding-bottom: 30px;
+}
+
+/* Bar styles */
+.price-bar {
+    position: relative;
+    width: 50px;
+    border-radius: 4px 4px 0 0;
+    transition: all 0.3s ease;
+    background: linear-gradient(180deg, #00d9ff 0%, #0066cc 100%);
+}
+
+.price-bar.current {
+    background: linear-gradient(180deg, #ffaa00 0%, #cc6600 100%);
+    box-shadow: 0 0 15px rgba(255, 170, 0, 0.5);
+}
+
+.price-bar.min-price {
+    background: linear-gradient(180deg, #00ff88 0%, #00aa55 100%);
+}
+
+.price-bar.sell-day {
+    background: linear-gradient(180deg, #ff79c6 0%, #cc4499 100%);
+    box-shadow: 0 0 15px rgba(255, 121, 198, 0.5);
+}
+
+.bar-value {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.bar-label {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #888;
+}
+
+/* Info box styles */
+.info-box.min-box {
+    border: 1px solid #00ff88;
+}
+
+.info-box.min-box h3 {
+    color: #00ff88;
+}
+
+.info-box.profit-box {
+    border: 1px solid #ff79c6;
+}
+
+.info-box.profit-box h3 {
+    color: #ff79c6;
+}
+
+.sub-info {
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Calculation display */
+.calculation-display {
+    text-align: center;
+    padding: 15px;
+    background: #2a2a4a;
+    border-radius: 8px;
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+.calc-label {
+    color: #888;
+    margin-right: 10px;
+}
+
+.calc-formula {
+    font-family: 'Courier New', monospace;
+    color: #00d9ff;
+}
+
+.calc-formula .positive {
+    color: #00ff88;
+}
+
+.calc-formula .negative {
+    color: #ff4444;
+}
+
+/* Legend colors */
+.legend-color.min-price {
+    background: linear-gradient(180deg, #00ff88 0%, #00aa55 100%);
+    border-color: #00ff88;
+}
+
+.legend-color.max-profit {
+    background: linear-gradient(180deg, #ff79c6 0%, #cc4499 100%);
+    border-color: #ff79c6;
+}
+
+/* Info panel layout */
+.info-panel {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .price-bar {
+        width: 40px;
+    }
+}
+
+/* Profit arrow animation */
+@keyframes profitPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.profit-highlight {
+    animation: profitPulse 0.5s ease;
+}

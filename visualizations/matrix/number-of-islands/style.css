@@ -1,0 +1,161 @@
+/* Number of Islands - Algorithm-specific styles */
+
+/* Grid styling */
+.grid-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.grid {
+    display: inline-grid;
+    gap: 3px;
+    background: #333;
+    padding: 3px;
+    border-radius: 8px;
+}
+
+.grid-cell {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+/* Cell states */
+.grid-cell.water {
+    background: #1a2a3a;
+    color: #4488ff;
+}
+
+.grid-cell.land {
+    background: #2a4a2a;
+    color: #88ff88;
+}
+
+.grid-cell.visited {
+    background: #4a3a2a;
+    color: #ffaa00;
+}
+
+.grid-cell.current {
+    background: #5a2a4a;
+    color: #ff79c6;
+    box-shadow: 0 0 15px rgba(255, 121, 198, 0.6);
+    animation: pulse 0.5s ease infinite;
+}
+
+.grid-cell.in-stack {
+    background: #3a3a5a;
+    color: #aa88ff;
+}
+
+/* Different colors for different islands */
+.grid-cell.island-1 { background: #2a4a2a; color: #88ff88; }
+.grid-cell.island-2 { background: #2a2a4a; color: #8888ff; }
+.grid-cell.island-3 { background: #4a2a2a; color: #ff8888; }
+.grid-cell.island-4 { background: #4a4a2a; color: #ffff88; }
+.grid-cell.island-5 { background: #2a4a4a; color: #88ffff; }
+.grid-cell.island-6 { background: #4a2a4a; color: #ff88ff; }
+
+/* Stack/Queue display */
+.stack-display {
+    margin: 20px 0;
+}
+
+.queue {
+    min-height: 50px;
+    background: #2a2a4a;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.queue-item {
+    background: #3a3a5a;
+    border: 1px solid #5a5a7a;
+    color: #aa88ff;
+}
+
+.empty-text {
+    color: #666;
+}
+
+/* Info box for islands */
+.info-box.islands-box {
+    border: 1px solid #00ff88;
+}
+
+.info-box.islands-box h3 {
+    color: #00ff88;
+}
+
+/* Legend colors */
+.legend-color.water-cell {
+    background: #1a2a3a;
+    border-color: #4488ff;
+}
+
+.legend-color.land-cell {
+    background: #2a4a2a;
+    border-color: #88ff88;
+}
+
+.legend-color.current-cell {
+    background: #5a2a4a;
+    border-color: #ff79c6;
+}
+
+.legend-color.visited-cell {
+    background: #4a3a2a;
+    border-color: #ffaa00;
+}
+
+/* Info panel layout */
+.info-panel {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-cell {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(255, 121, 198, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 121, 198, 0.8);
+    }
+}
+
+/* Ripple effect for DFS */
+@keyframes ripple {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.ripple {
+    animation: ripple 0.3s ease;
+}

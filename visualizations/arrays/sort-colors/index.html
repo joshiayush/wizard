@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort Colors - Dutch National Flag Algorithm</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Sort Colors - Dutch National Flag</h1>
+        <p class="description">Sort array of 0s (red), 1s (white), and 2s (blue) in-place using three pointers</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>Array:</label>
+                <input type="text" id="arrayInput" value="2, 0, 2, 1, 1, 0" placeholder="e.g., 2, 0, 2, 1, 1, 0">
+            </div>
+            <button class="btn-random" id="randomBtn">Random</button>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label>Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="800">
+            </div>
+        </div>
+
+        <div class="visualization">
+            <div class="section-title">Array</div>
+
+            <div class="array-wrapper" id="arrayWrapper">
+                <div class="array-container" id="arrayDisplay"></div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-box low">
+                    <h3>Low Pointer</h3>
+                    <div class="info-value" id="lowValue">0</div>
+                    <div class="pointer-desc">Next position for 0</div>
+                </div>
+                <div class="info-box mid">
+                    <h3>Mid Pointer</h3>
+                    <div class="info-value" id="midValue">0</div>
+                    <div class="pointer-desc">Current element</div>
+                </div>
+                <div class="info-box high">
+                    <h3>High Pointer</h3>
+                    <div class="info-value" id="highValue">-</div>
+                    <div class="pointer-desc">Next position for 2</div>
+                </div>
+            </div>
+
+            <div class="regions" id="regionsDisplay">
+                <div class="region">
+                    <div class="region-color red"></div>
+                    <div>
+                        <div class="region-label">Red (0s)</div>
+                        <div class="region-range" id="redRange">[0, low)</div>
+                    </div>
+                </div>
+                <div class="region">
+                    <div class="region-color white"></div>
+                    <div>
+                        <div class="region-label">White (1s)</div>
+                        <div class="region-range" id="whiteRange">[low, mid)</div>
+                    </div>
+                </div>
+                <div class="region">
+                    <div class="region-color blue"></div>
+                    <div>
+                        <div class="region-label">Blue (2s)</div>
+                        <div class="region-range" id="blueRange">(high, end]</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status" id="status">
+                Click "Step" or "Play" to start the visualization
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color color-red"></div>
+                    <span>0 (Red)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color color-white"></div>
+                    <span>1 (White)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color color-blue"></div>
+                    <span>2 (Blue)</span>
+                </div>
+            </div>
+
+            <div class="pointer-legend">
+                <div class="pointer-item low">&#9650; low - boundary for 0s</div>
+                <div class="pointer-item mid">&#9650; mid - current scan</div>
+                <div class="pointer-item high">&#9650; high - boundary for 2s</div>
+            </div>
+        </div>
+
+        <div class="code-panel">
+            <div class="section-title">Python Code - Dutch National Flag Algorithm</div>
+            <div class="code-line" id="code-0">
+                <span class="code-variable">low</span>, <span class="code-variable">mid</span>, <span class="code-variable">high</span> = <span class="code-number">0</span>, <span class="code-number">0</span>, <span class="code-function">len</span>(nums) - <span class="code-number">1</span>
+            </div>
+            <div class="code-line" id="code-1">
+                <span class="code-keyword">while</span> mid <= high:
+            </div>
+            <div class="code-line" id="code-2">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> nums[mid] == <span class="code-number">0</span>:
+            </div>
+            <div class="code-line" id="code-3">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nums[low], nums[mid] = nums[mid], nums[low]
+            </div>
+            <div class="code-line" id="code-4">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;low += <span class="code-number">1</span>; mid += <span class="code-number">1</span>
+            </div>
+            <div class="code-line" id="code-5">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">elif</span> nums[mid] == <span class="code-number">1</span>:
+            </div>
+            <div class="code-line" id="code-6">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mid += <span class="code-number">1</span>
+            </div>
+            <div class="code-line" id="code-7">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">else</span>: <span class="code-comment"># nums[mid] == 2</span>
+            </div>
+            <div class="code-line" id="code-8">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nums[mid], nums[high] = nums[high], nums[mid]
+            </div>
+            <div class="code-line" id="code-9">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;high -= <span class="code-number">1</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

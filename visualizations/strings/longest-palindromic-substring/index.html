@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Longest Palindromic Substring</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Longest Palindromic Substring</h1>
+        <p class="description">Find the longest palindrome within a string using brute force approach</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>String:</label>
+                <input type="text" id="stringInput" value="babad" placeholder="e.g., babad">
+            </div>
+            <button class="btn-random" id="randomBtn">Random</button>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label>Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="600">
+            </div>
+        </div>
+
+        <div class="visualization">
+            <div class="section-title">String</div>
+            <div class="string-container" id="stringDisplay"></div>
+
+            <div class="substring-display">
+                <div class="section-title">Current Substring</div>
+                <div class="substring-box" id="currentSubstring">-</div>
+                <div class="palindrome-check" id="palindromeCheck">-</div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-box">
+                    <h3>Start Index (i)</h3>
+                    <div class="info-value" id="iValue">0</div>
+                </div>
+                <div class="info-box">
+                    <h3>End Index (j)</h3>
+                    <div class="info-value" id="jValue">0</div>
+                </div>
+                <div class="info-box longest-box">
+                    <h3>Longest Palindrome</h3>
+                    <div class="info-value" id="longestValue">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Length</h3>
+                    <div class="info-value" id="lengthValue">0</div>
+                </div>
+            </div>
+
+            <div class="found-palindromes">
+                <div class="section-title">Found Palindromes</div>
+                <div class="palindrome-list" id="palindromeList">
+                    <span class="empty-text">None found yet</span>
+                </div>
+            </div>
+
+            <div class="status" id="status">
+                Click "Step" or "Play" to start the visualization
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color in-range"></div>
+                    <span>Current Window</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color palindrome"></div>
+                    <span>Palindrome</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color longest"></div>
+                    <span>Longest Found</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-panel">
+            <div class="section-title">Python Code - Brute Force</div>
+            <div class="code-line" id="code-0">
+                <span class="code-keyword">for</span> <span class="code-variable">i</span> <span class="code-keyword">in</span> <span class="code-function">range</span>(len(s)):
+            </div>
+            <div class="code-line" id="code-1">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> <span class="code-variable">j</span> <span class="code-keyword">in</span> <span class="code-function">range</span>(i, len(s)):
+            </div>
+            <div class="code-line" id="code-2">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">sub</span> = s[i:j+<span class="code-number">1</span>]
+            </div>
+            <div class="code-line" id="code-3">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> is_palindrome(sub):
+            </div>
+            <div class="code-line" id="code-4">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> <span class="code-function">len</span>(sub) > <span class="code-function">len</span>(longest):
+            </div>
+            <div class="code-line" id="code-5">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;longest = sub
+            </div>
+            <div class="code-line" id="code-6">
+                <span class="code-keyword">return</span> longest
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

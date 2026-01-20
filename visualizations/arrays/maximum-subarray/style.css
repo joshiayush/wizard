@@ -1,0 +1,98 @@
+/* Maximum Subarray - Algorithm-specific styles */
+
+/* Subarray visualization */
+.subarray-display {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.subarray-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    min-height: 50px;
+    flex-wrap: wrap;
+}
+
+.subarray-item {
+    background: #2a4a2a;
+    border: 2px solid #00ff88;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    animation: fadeIn 0.3s ease;
+}
+
+.subarray-equals {
+    color: #888;
+    font-size: 20px;
+}
+
+.subarray-sum {
+    background: #3a3a2a;
+    border: 2px solid #ffaa00;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Array box states */
+.array-box.in-subarray {
+    border-color: #00d9ff;
+    background: #1a2a3a;
+}
+
+.array-box.max-subarray {
+    border-color: #00ff88;
+    background: #1a3a2a;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.array-box.negative-sum {
+    border-color: #ff4444;
+    background: #3a1a1a;
+}
+
+/* Legend color for in-subarray */
+.legend-color.in-subarray {
+    border-color: #00d9ff;
+    background: #1a2a3a;
+}
+
+.legend-color.max-subarray {
+    border-color: #00ff88;
+    background: #1a3a2a;
+}
+
+/* Info box for max */
+.info-box.max-box {
+    border: 1px solid #00ff88;
+}
+
+.info-box.max-box h3 {
+    color: #00ff88;
+}
+
+/* Info panel layout */
+.info-panel {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Reset animation for sum going negative */
+@keyframes reset {
+    0% { background: #3a1a1a; }
+    50% { background: #5a2a2a; }
+    100% { background: #2a2a4a; }
+}
+
+.resetting {
+    animation: reset 0.5s ease;
+}

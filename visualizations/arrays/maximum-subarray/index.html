@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maximum Subarray - Kadane's Algorithm</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Maximum Subarray</h1>
+        <p class="description">Find the contiguous subarray with the largest sum using Kadane's Algorithm</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>Array:</label>
+                <input type="text" id="arrayInput" value="-2, 1, -3, 4, -1, 2, 1, -5, 4" placeholder="e.g., -2, 1, -3, 4, -1, 2, 1, -5, 4">
+            </div>
+            <button class="btn-random" id="randomBtn">Random</button>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label>Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="800">
+            </div>
+        </div>
+
+        <div class="visualization">
+            <div class="section-title">Array</div>
+            <div class="array-container" id="arrayDisplay"></div>
+
+            <div class="subarray-display">
+                <div class="section-title">Current Subarray</div>
+                <div class="subarray-visual" id="subarrayVisual"></div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-box">
+                    <h3>Current Index (i)</h3>
+                    <div class="info-value" id="currentIndex">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Current Sum</h3>
+                    <div class="info-value" id="currentSum">0</div>
+                </div>
+                <div class="info-box max-box">
+                    <h3>Maximum Sum</h3>
+                    <div class="info-value" id="maxSum">-&infin;</div>
+                </div>
+                <div class="info-box">
+                    <h3>Max Subarray</h3>
+                    <div class="info-value small" id="maxSubarray">-</div>
+                </div>
+            </div>
+
+            <div class="status" id="status">
+                Click "Step" or "Play" to start the visualization
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color current"></div>
+                    <span>Current Element</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color in-subarray"></div>
+                    <span>In Current Subarray</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color max-subarray"></div>
+                    <span>Max Subarray</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-panel">
+            <div class="section-title">Python Code - Kadane's Algorithm</div>
+            <div class="code-line" id="code-0">
+                <span class="code-variable">sum</span> = <span class="code-number">0</span>
+            </div>
+            <div class="code-line" id="code-1">
+                <span class="code-variable">max</span> = -<span class="code-variable">math.inf</span>
+            </div>
+            <div class="code-line" id="code-2">
+                <span class="code-keyword">for</span> <span class="code-variable">i</span> <span class="code-keyword">in</span> <span class="code-function">range</span>(<span class="code-function">len</span>(nums)):
+            </div>
+            <div class="code-line" id="code-3">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> sum == <span class="code-number">0</span>: start = i
+            </div>
+            <div class="code-line" id="code-4">
+                &nbsp;&nbsp;&nbsp;&nbsp;sum += nums[i]
+            </div>
+            <div class="code-line" id="code-5">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> sum > max:
+            </div>
+            <div class="code-line" id="code-6">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max = sum
+            </div>
+            <div class="code-line" id="code-7">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ans_start, ans_end = start, i
+            </div>
+            <div class="code-line" id="code-8">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> sum < <span class="code-number">0</span>: sum = <span class="code-number">0</span>
+            </div>
+            <div class="code-line" id="code-9">
+                <span class="code-keyword">return</span> max
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

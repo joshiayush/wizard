@@ -1,0 +1,21 @@
+/* Two Sum - Algorithm-specific styles */
+
+.empty-text {
+    color: #666;
+}
+
+/* Make hashmap entries more prominent */
+.hashmap-entry {
+    font-size: 16px;
+}
+
+/* Info panel specific layout */
+.info-panel {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

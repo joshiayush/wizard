@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Sum - Algorithm Visualization</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Two Sum Algorithm</h1>
+        <p class="description">Find two numbers that add up to the target using a hashmap</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>Array:</label>
+                <input type="text" id="arrayInput" value="2, 7, 11, 15" placeholder="e.g., 2, 7, 11, 15">
+            </div>
+            <div class="input-group">
+                <label>Target:</label>
+                <input type="number" id="targetInput" value="9">
+            </div>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label>Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="1000">
+            </div>
+        </div>
+
+        <div class="visualization">
+            <div class="section-title">Array</div>
+            <div class="array-container" id="arrayDisplay"></div>
+
+            <div class="info-panel">
+                <div class="info-box">
+                    <h3>Current Index (i)</h3>
+                    <div class="info-value" id="currentIndex">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Current Value</h3>
+                    <div class="info-value" id="currentValue">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Complement (target - nums[i])</h3>
+                    <div class="info-value" id="complementValue">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Target</h3>
+                    <div class="info-value" id="targetDisplay">9</div>
+                </div>
+            </div>
+
+            <div class="hashmap-container">
+                <div class="section-title">HashMap (value &rarr; index)</div>
+                <div class="hashmap" id="hashmapDisplay">
+                    <span class="empty-text">Empty</span>
+                </div>
+            </div>
+
+            <div class="status" id="status">
+                Click "Step" or "Play" to start the visualization
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color current"></div>
+                    <span>Current Element</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color highlight"></div>
+                    <span>In HashMap</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color found"></div>
+                    <span>Solution Found</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-panel">
+            <div class="section-title">Python Code</div>
+            <div class="code-line" id="code-0">
+                <span class="code-variable">numsMap</span> = <span class="code-function">dict</span>()
+            </div>
+            <div class="code-line" id="code-1">
+                <span class="code-keyword">for</span> <span class="code-variable">i</span> <span class="code-keyword">in</span> <span class="code-function">range</span>(<span class="code-function">len</span>(nums)):
+            </div>
+            <div class="code-line" id="code-2">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">complement</span> = target - nums[i]
+            </div>
+            <div class="code-line" id="code-3">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> complement <span class="code-keyword">in</span> numsMap:
+            </div>
+            <div class="code-line" id="code-4">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> [i, numsMap[complement]]
+            </div>
+            <div class="code-line" id="code-5">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">else</span>:
+            </div>
+            <div class="code-line" id="code-6">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numsMap[nums[i]] = i
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

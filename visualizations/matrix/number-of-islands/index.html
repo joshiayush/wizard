@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number of Islands - DFS/BFS</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Number of Islands</h1>
+        <p class="description">Count distinct islands in a 2D grid using DFS traversal</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>Grid (rows separated by ;):</label>
+                <input type="text" id="gridInput" value="1,1,0,0,0;1,1,0,0,0;0,0,1,0,0;0,0,0,1,1" placeholder="1,1,0;0,1,0;0,0,1" style="width: 300px;">
+            </div>
+            <button class="btn-random" id="randomBtn">Random</button>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label>Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="500">
+            </div>
+        </div>
+
+        <div class="visualization">
+            <div class="section-title">Grid</div>
+            <div class="grid-container" id="gridContainer"></div>
+
+            <div class="info-panel">
+                <div class="info-box">
+                    <h3>Current Cell</h3>
+                    <div class="info-value" id="currentCell">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Scanning</h3>
+                    <div class="info-value small" id="scanningCell">-</div>
+                </div>
+                <div class="info-box islands-box">
+                    <h3>Islands Found</h3>
+                    <div class="info-value" id="islandCount">0</div>
+                </div>
+                <div class="info-box">
+                    <h3>DFS Stack</h3>
+                    <div class="info-value small" id="stackSize">0</div>
+                </div>
+            </div>
+
+            <div class="stack-display">
+                <div class="section-title">DFS Stack / BFS Queue</div>
+                <div class="queue" id="stackDisplay">
+                    <span class="empty-text">Empty</span>
+                </div>
+            </div>
+
+            <div class="status" id="status">
+                Click "Step" or "Play" to start the visualization
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color water-cell"></div>
+                    <span>Water (0)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color land-cell"></div>
+                    <span>Land (1)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color current-cell"></div>
+                    <span>Current</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color visited-cell"></div>
+                    <span>Visited</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-panel">
+            <div class="section-title">Python Code - DFS Approach</div>
+            <div class="code-line" id="code-0">
+                <span class="code-keyword">for</span> <span class="code-variable">i</span> <span class="code-keyword">in</span> <span class="code-function">range</span>(rows):
+            </div>
+            <div class="code-line" id="code-1">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> <span class="code-variable">j</span> <span class="code-keyword">in</span> <span class="code-function">range</span>(cols):
+            </div>
+            <div class="code-line" id="code-2">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> grid[i][j] == <span class="code-string">"1"</span> <span class="code-keyword">and not</span> visited[i][j]:
+            </div>
+            <div class="code-line" id="code-3">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;islands += <span class="code-number">1</span>
+            </div>
+            <div class="code-line" id="code-4">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dfs(i, j) <span class="code-comment"># mark all connected land</span>
+            </div>
+            <div class="code-line" id="code-5">
+                <span class="code-keyword">def</span> <span class="code-function">dfs</span>(i, j):
+            </div>
+            <div class="code-line" id="code-6">
+                &nbsp;&nbsp;&nbsp;&nbsp;visited[i][j] = <span class="code-keyword">True</span>
+            </div>
+            <div class="code-line" id="code-7">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> di, dj <span class="code-keyword">in</span> [(-<span class="code-number">1</span>,<span class="code-number">0</span>),(<span class="code-number">0</span>,<span class="code-number">1</span>),(<span class="code-number">1</span>,<span class="code-number">0</span>),(<span class="code-number">0</span>,-<span class="code-number">1</span>)]:
+            </div>
+            <div class="code-line" id="code-8">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> valid(i+di, j+dj) <span class="code-keyword">and not</span> visited:
+            </div>
+            <div class="code-line" id="code-9">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dfs(i+di, j+dj)
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

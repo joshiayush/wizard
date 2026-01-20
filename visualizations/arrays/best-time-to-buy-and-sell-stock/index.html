@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Time to Buy and Sell Stock</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Best Time to Buy and Sell Stock</h1>
+        <p class="description">Maximize profit by finding the best day to buy and sell</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>Prices:</label>
+                <input type="text" id="arrayInput" value="7, 1, 5, 3, 6, 4" placeholder="e.g., 7, 1, 5, 3, 6, 4">
+            </div>
+            <button class="btn-random" id="randomBtn">Random</button>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label>Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="800">
+            </div>
+        </div>
+
+        <div class="visualization">
+            <div class="section-title">Stock Prices</div>
+            <div class="chart-container">
+                <div class="bar-chart" id="priceChart"></div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-box">
+                    <h3>Current Day</h3>
+                    <div class="info-value" id="currentDay">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Current Price</h3>
+                    <div class="info-value" id="currentPrice">-</div>
+                </div>
+                <div class="info-box min-box">
+                    <h3>Min Price (Buy)</h3>
+                    <div class="info-value" id="minPrice">-</div>
+                    <div class="sub-info" id="buyDay">Day: -</div>
+                </div>
+                <div class="info-box profit-box">
+                    <h3>Max Profit</h3>
+                    <div class="info-value" id="maxProfit">0</div>
+                    <div class="sub-info" id="sellDay">Sell Day: -</div>
+                </div>
+            </div>
+
+            <div class="calculation-display" id="calculationDisplay">
+                <span class="calc-label">Potential Profit:</span>
+                <span class="calc-formula" id="calcFormula">-</span>
+            </div>
+
+            <div class="status" id="status">
+                Click "Step" or "Play" to start the visualization
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color current"></div>
+                    <span>Current Day</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color min-price"></div>
+                    <span>Min Price (Buy)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color max-profit"></div>
+                    <span>Best Sell Day</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-panel">
+            <div class="section-title">Python Code</div>
+            <div class="code-line" id="code-0">
+                <span class="code-variable">profit</span> = <span class="code-number">0</span>
+            </div>
+            <div class="code-line" id="code-1">
+                <span class="code-variable">mini</span> = prices[<span class="code-number">0</span>]
+            </div>
+            <div class="code-line" id="code-2">
+                <span class="code-keyword">for</span> <span class="code-variable">i</span> <span class="code-keyword">in</span> <span class="code-function">range</span>(<span class="code-number">1</span>, <span class="code-function">len</span>(prices)):
+            </div>
+            <div class="code-line" id="code-3">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">cost</span> = prices[i] - mini
+            </div>
+            <div class="code-line" id="code-4">
+                &nbsp;&nbsp;&nbsp;&nbsp;profit = <span class="code-function">max</span>(profit, cost)
+            </div>
+            <div class="code-line" id="code-5">
+                &nbsp;&nbsp;&nbsp;&nbsp;mini = <span class="code-function">min</span>(mini, prices[i])
+            </div>
+            <div class="code-line" id="code-6">
+                <span class="code-keyword">return</span> profit
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
