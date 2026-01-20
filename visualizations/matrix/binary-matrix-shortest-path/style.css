@@ -1,0 +1,239 @@
+/* Binary Matrix Shortest Path - Algorithm-specific styles */
+
+/* Grid styling */
+.grid-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.grid {
+    display: inline-grid;
+    gap: 3px;
+    background: #333;
+    padding: 3px;
+    border-radius: 8px;
+}
+
+.grid-cell {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    cursor: default;
+    border: 2px solid transparent;
+    position: relative;
+}
+
+/* Cell states */
+.grid-cell.blocked {
+    background: #1a1a2a;
+    color: #666;
+}
+
+.grid-cell.blocked-endpoint {
+    background: #4a1a1a;
+    border-color: #ff4444;
+    color: #ff4444;
+    box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+.grid-cell.clear {
+    background: #2a3a4a;
+    color: #88ccff;
+}
+
+.grid-cell.start {
+    background: #2a4a2a;
+    border-color: #00ff88;
+    color: #00ff88;
+}
+
+.grid-cell.goal {
+    background: #4a2a4a;
+    border-color: #ff79c6;
+    color: #ff79c6;
+}
+
+.grid-cell.current {
+    background: #4a4a2a;
+    border-color: #ffaa00;
+    box-shadow: 0 0 15px rgba(255, 170, 0, 0.6);
+    animation: pulse 0.5s ease infinite;
+}
+
+.grid-cell.visited {
+    background: #3a3a5a;
+    color: #aa88ff;
+}
+
+.grid-cell.in-queue {
+    background: #2a3a3a;
+    border-color: #00d9ff;
+    box-shadow: 0 0 8px rgba(0, 217, 255, 0.4);
+}
+
+.grid-cell.path {
+    background: #2a5a2a;
+    border-color: #00ff88;
+    color: #00ff88;
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
+    animation: pathGlow 1s ease infinite;
+}
+
+/* Distance label inside cell */
+.cell-distance {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Queue display */
+.queue-display {
+    margin: 20px 0;
+}
+
+.queue {
+    min-height: 50px;
+    background: #2a2a4a;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.queue-item {
+    background: #3a3a5a;
+    border: 1px solid #5a5a7a;
+    color: #00d9ff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    animation: fadeIn 0.2s ease;
+}
+
+.queue-item.first {
+    background: #4a4a2a;
+    border-color: #ffaa00;
+    color: #ffaa00;
+}
+
+.empty-text {
+    color: #666;
+}
+
+/* Info panel layout */
+.info-panel {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.info-box.result-box {
+    border: 1px solid #00ff88;
+}
+
+.info-box.result-box h3 {
+    color: #00ff88;
+}
+
+.info-box.result-box.no-path {
+    border-color: #ff4444;
+}
+
+.info-box.result-box.no-path h3 {
+    color: #ff4444;
+}
+
+/* Legend colors */
+.legend-color.blocked-legend {
+    background: #1a1a2a;
+    border-color: #666;
+}
+
+.legend-color.clear-legend {
+    background: #2a3a4a;
+    border-color: #88ccff;
+}
+
+.legend-color.start-legend {
+    background: #2a4a2a;
+    border-color: #00ff88;
+}
+
+.legend-color.goal-legend {
+    background: #4a2a4a;
+    border-color: #ff79c6;
+}
+
+.legend-color.current-legend {
+    background: #4a4a2a;
+    border-color: #ffaa00;
+}
+
+.legend-color.visited-legend {
+    background: #3a3a5a;
+    border-color: #aa88ff;
+}
+
+.legend-color.path-legend {
+    background: #2a5a2a;
+    border-color: #00ff88;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(255, 170, 0, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 170, 0, 0.8);
+    }
+}
+
+@keyframes pathGlow {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 16px rgba(0, 255, 136, 0.8);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-cell {
+        width: 40px;
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .cell-distance {
+        font-size: 11px;
+    }
+
+    .legend {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
