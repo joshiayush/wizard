@@ -52,24 +52,58 @@
 
         .algorithms {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
         }
 
         .algo-card {
             background: #2a2a4a;
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 20px;
             text-decoration: none;
             color: #fff;
             transition: all 0.3s ease;
             border: 1px solid transparent;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .algo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(0, 217, 255, 0.03) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .algo-card:hover::before {
+            opacity: 1;
         }
 
         .algo-card:hover {
             border-color: #00d9ff;
             transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(0, 217, 255, 0.2);
+            box-shadow: 0 8px 30px rgba(0, 217, 255, 0.15);
+        }
+
+        .algo-card:hover .algo-svg {
+            transform: scale(1.05);
+        }
+
+        .algo-card:hover .algo-svg .animate-on-hover {
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        .algo-content {
+            flex: 1;
+            z-index: 1;
         }
 
         .algo-card h3 {
@@ -80,8 +114,9 @@
 
         .algo-card p {
             color: #888;
-            font-size: 0.9em;
+            font-size: 0.85em;
             margin-bottom: 12px;
+            line-height: 1.4;
         }
 
         .algo-tag {
@@ -91,6 +126,29 @@
             padding: 4px 10px;
             border-radius: 4px;
             font-size: 0.75em;
+        }
+
+        .algo-svg {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+
+        .algo-svg svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
         }
 
         .footer {
@@ -108,6 +166,16 @@
         .footer a:hover {
             text-decoration: underline;
         }
+
+        @media (max-width: 480px) {
+            .algo-svg {
+                width: 60px;
+                height: 60px;
+            }
+            .algorithms {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -123,29 +191,118 @@
                 <h2><span class="category-icon">[]</span> Arrays</h2>
                 <div class="algorithms">
                     <a href="arrays/two-sum/index.html" class="algo-card">
-                        <h3>Two Sum</h3>
-                        <p>Find two numbers that add up to a target using a hashmap approach.</p>
-                        <span class="algo-tag">HashMap</span>
+                        <div class="algo-content">
+                            <h3>Two Sum</h3>
+                            <p>Find two numbers that add up to a target using a hashmap approach.</p>
+                            <span class="algo-tag">HashMap</span>
+                        </div>
+                        <div class="algo-svg">
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Two boxes with arrow pointing to target -->
+                                <rect x="5" y="30" width="20" height="20" rx="3" fill="#3a3a5a" stroke="#00d9ff" stroke-width="1.5"/>
+                                <text x="15" y="44" fill="#00d9ff" font-size="10" text-anchor="middle">2</text>
+                                <rect x="30" y="30" width="20" height="20" rx="3" fill="#3a3a5a" stroke="#00d9ff" stroke-width="1.5"/>
+                                <text x="40" y="44" fill="#00d9ff" font-size="10" text-anchor="middle">7</text>
+                                <path d="M55 40 L65 40" stroke="#4ecdc4" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="72" cy="40" r="7" fill="#4ecdc4" class="animate-on-hover"/>
+                                <text x="72" y="44" fill="#1a1a2e" font-size="9" font-weight="bold" text-anchor="middle">9</text>
+                                <path d="M15 55 Q25 65 40 55" stroke="#ff6b6b" stroke-width="1.5" fill="none" stroke-dasharray="3,2"/>
+                            </svg>
+                        </div>
                     </a>
                     <a href="arrays/sort-colors/index.html" class="algo-card">
-                        <h3>Sort Colors</h3>
-                        <p>Sort an array of 0s, 1s, and 2s in-place using three pointers.</p>
-                        <span class="algo-tag">Dutch National Flag</span>
+                        <div class="algo-content">
+                            <h3>Sort Colors</h3>
+                            <p>Sort an array of 0s, 1s, and 2s in-place using three pointers.</p>
+                            <span class="algo-tag">Dutch National Flag</span>
+                        </div>
+                        <div class="algo-svg">
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Three colored circles representing DNF -->
+                                <circle cx="20" cy="25" r="10" fill="#ff4444"/>
+                                <circle cx="40" cy="25" r="10" fill="#ffffff" opacity="0.9"/>
+                                <circle cx="60" cy="25" r="10" fill="#4444ff"/>
+                                <!-- Arrow showing sorting -->
+                                <path d="M20 42 L60 42" stroke="#00d9ff" stroke-width="1.5" stroke-dasharray="4,2"/>
+                                <path d="M55 38 L60 42 L55 46" stroke="#00d9ff" stroke-width="1.5" fill="none"/>
+                                <!-- Sorted result -->
+                                <rect x="10" y="52" width="15" height="15" rx="2" fill="#ff4444" class="animate-on-hover"/>
+                                <rect x="32" y="52" width="15" height="15" rx="2" fill="#ffffff" opacity="0.9"/>
+                                <rect x="54" y="52" width="15" height="15" rx="2" fill="#4444ff"/>
+                            </svg>
+                        </div>
                     </a>
                     <a href="arrays/maximum-subarray/index.html" class="algo-card">
-                        <h3>Maximum Subarray</h3>
-                        <p>Find the contiguous subarray with the largest sum.</p>
-                        <span class="algo-tag">Kadane's Algorithm</span>
+                        <div class="algo-content">
+                            <h3>Maximum Subarray</h3>
+                            <p>Find the contiguous subarray with the largest sum.</p>
+                            <span class="algo-tag">Kadane's Algorithm</span>
+                        </div>
+                        <div class="algo-svg">
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Bar chart representing subarray -->
+                                <rect x="8" y="45" width="8" height="20" rx="1" fill="#3a3a5a"/>
+                                <rect x="20" y="35" width="8" height="30" rx="1" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="32" y="25" width="8" height="40" rx="1" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="44" y="40" width="8" height="25" rx="1" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="56" y="50" width="8" height="15" rx="1" fill="#3a3a5a"/>
+                                <rect x="68" y="55" width="8" height="10" rx="1" fill="#3a3a5a"/>
+                                <!-- Highlight bracket -->
+                                <path d="M18 20 L18 15 L54 15 L54 20" stroke="#00d9ff" stroke-width="1.5" fill="none"/>
+                                <text x="36" y="12" fill="#00d9ff" font-size="8" text-anchor="middle">max</text>
+                            </svg>
+                        </div>
                     </a>
                     <a href="arrays/best-time-to-buy-and-sell-stock/index.html" class="algo-card">
-                        <h3>Best Time to Buy and Sell Stock</h3>
-                        <p>Maximize profit by finding the best buy and sell days.</p>
-                        <span class="algo-tag">Single Pass</span>
+                        <div class="algo-content">
+                            <h3>Best Time to Buy and Sell Stock</h3>
+                            <p>Maximize profit by finding the best buy and sell days.</p>
+                            <span class="algo-tag">Single Pass</span>
+                        </div>
+                        <div class="algo-svg">
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Stock chart line -->
+                                <polyline points="10,50 20,55 30,35 40,45 50,25 60,30 70,20" fill="none" stroke="#00d9ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <!-- Buy point (low) -->
+                                <circle cx="30" cy="35" r="5" fill="#4ecdc4" class="animate-on-hover"/>
+                                <text x="30" y="48" fill="#4ecdc4" font-size="7" text-anchor="middle">buy</text>
+                                <!-- Sell point (high) -->
+                                <circle cx="70" cy="20" r="5" fill="#ff6b6b"/>
+                                <text x="70" y="33" fill="#ff6b6b" font-size="7" text-anchor="middle">sell</text>
+                                <!-- Profit arrow -->
+                                <path d="M30 35 L70 20" stroke="#ffd700" stroke-width="1" stroke-dasharray="3,2"/>
+                                <!-- Dollar sign -->
+                                <text x="50" y="60" fill="#ffd700" font-size="12" text-anchor="middle">$</text>
+                            </svg>
+                        </div>
                     </a>
                     <a href="arrays/hybrid-quick-sort/index.html" class="algo-card">
-                        <h3>Hybrid Quick Sort</h3>
-                        <p>QuickSort with Dutch National Flag 3-way partitioning.</p>
-                        <span class="algo-tag">Divide & Conquer</span>
+                        <div class="algo-content">
+                            <h3>Hybrid Quick Sort</h3>
+                            <p>QuickSort with Dutch National Flag 3-way partitioning.</p>
+                            <span class="algo-tag">Divide & Conquer</span>
+                        </div>
+                        <div class="algo-svg">
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Unsorted bars on top -->
+                                <rect x="10" y="10" width="8" height="25" rx="1" fill="#ff6b6b"/>
+                                <rect x="22" y="10" width="8" height="15" rx="1" fill="#5b8def"/>
+                                <rect x="34" y="10" width="8" height="35" rx="1" fill="#ffd700" class="animate-on-hover"/>
+                                <rect x="46" y="10" width="8" height="20" rx="1" fill="#ff6b6b"/>
+                                <rect x="58" y="10" width="8" height="30" rx="1" fill="#5b8def"/>
+                                <!-- Pivot indicator -->
+                                <text x="38" y="8" fill="#ffd700" font-size="6">pivot</text>
+                                <!-- Arrow down -->
+                                <path d="M40 48 L40 55" stroke="#00d9ff" stroke-width="2"/>
+                                <path d="M36 52 L40 58 L44 52" stroke="#00d9ff" stroke-width="2" fill="none"/>
+                                <!-- Sorted bars on bottom -->
+                                <rect x="10" y="62" width="8" height="10" rx="1" fill="#4ecdc4"/>
+                                <rect x="22" y="62" width="8" height="15" rx="1" fill="#4ecdc4"/>
+                                <rect x="34" y="62" width="8" height="18" rx="1" fill="#4ecdc4"/>
+                                <rect x="46" y="62" width="8" height="22" rx="1" fill="#4ecdc4"/>
+                                <rect x="58" y="62" width="8" height="28" rx="1" fill="#4ecdc4"/>
+                            </svg>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -155,14 +312,57 @@
                 <h2><span class="category-icon">" "</span> Strings</h2>
                 <div class="algorithms">
                     <a href="strings/kmp/index.html" class="algo-card">
-                        <h3>KMP Pattern Matching</h3>
-                        <p>Find a pattern in text efficiently using prefix table.</p>
-                        <span class="algo-tag">Knuth-Morris-Pratt</span>
+                        <div class="algo-content">
+                            <h3>KMP Pattern Matching</h3>
+                            <p>Find a pattern in text efficiently using prefix table.</p>
+                            <span class="algo-tag">Knuth-Morris-Pratt</span>
+                        </div>
+                        <div class="algo-svg">
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Text string -->
+                                <rect x="5" y="20" width="70" height="16" rx="3" fill="#3a3a5a" stroke="#444" stroke-width="1"/>
+                                <text x="40" y="31" fill="#888" font-size="8" text-anchor="middle" font-family="monospace">ABABCABAB</text>
+                                <!-- Pattern highlight -->
+                                <rect x="35" y="18" width="28" height="20" rx="3" fill="none" stroke="#4ecdc4" stroke-width="2" class="animate-on-hover"/>
+                                <!-- Pattern below -->
+                                <rect x="25" y="50" width="30" height="14" rx="3" fill="#00d9ff" opacity="0.2" stroke="#00d9ff" stroke-width="1.5"/>
+                                <text x="40" y="60" fill="#00d9ff" font-size="8" text-anchor="middle" font-family="monospace">ABAB</text>
+                                <!-- Arrow -->
+                                <path d="M40 44 L40 48" stroke="#00d9ff" stroke-width="1.5"/>
+                                <path d="M37 46 L40 50 L43 46" stroke="#00d9ff" stroke-width="1.5" fill="none"/>
+                                <!-- Match indicator -->
+                                <circle cx="70" cy="57" r="6" fill="#4ecdc4"/>
+                                <path d="M67 57 L69 59 L73 55" stroke="#1a1a2e" stroke-width="1.5" fill="none"/>
+                            </svg>
+                        </div>
                     </a>
                     <a href="strings/longest-palindromic-substring/index.html" class="algo-card">
-                        <h3>Longest Palindromic Substring</h3>
-                        <p>Find the longest palindrome within a string.</p>
-                        <span class="algo-tag">Brute Force</span>
+                        <div class="algo-content">
+                            <h3>Longest Palindromic Substring</h3>
+                            <p>Find the longest palindrome within a string.</p>
+                            <span class="algo-tag">Expand Around Center</span>
+                        </div>
+                        <div class="algo-svg">
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Mirror effect -->
+                                <line x1="40" y1="15" x2="40" y2="65" stroke="#3a3a5a" stroke-width="1" stroke-dasharray="3,3"/>
+                                <!-- Left side letters -->
+                                <text x="15" y="35" fill="#00d9ff" font-size="14" font-family="monospace">R</text>
+                                <text x="25" y="45" fill="#00d9ff" font-size="14" font-family="monospace">A</text>
+                                <text x="32" y="55" fill="#4ecdc4" font-size="14" font-family="monospace" class="animate-on-hover">C</text>
+                                <!-- Center -->
+                                <text x="37" y="42" fill="#ffd700" font-size="16" font-family="monospace">E</text>
+                                <!-- Right side letters (mirrored) -->
+                                <text x="48" y="55" fill="#4ecdc4" font-size="14" font-family="monospace" class="animate-on-hover">C</text>
+                                <text x="55" y="45" fill="#00d9ff" font-size="14" font-family="monospace">A</text>
+                                <text x="65" y="35" fill="#00d9ff" font-size="14" font-family="monospace">R</text>
+                                <!-- Expansion arrows -->
+                                <path d="M32 25 L25 25" stroke="#ff6b6b" stroke-width="1.5"/>
+                                <path d="M28 22 L25 25 L28 28" stroke="#ff6b6b" stroke-width="1.5" fill="none"/>
+                                <path d="M48 25 L55 25" stroke="#ff6b6b" stroke-width="1.5"/>
+                                <path d="M52 22 L55 25 L52 28" stroke="#ff6b6b" stroke-width="1.5" fill="none"/>
+                            </svg>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -172,19 +372,91 @@
                 <h2><span class="category-icon">#</span> Matrix</h2>
                 <div class="algorithms">
                     <a href="matrix/number-of-islands/index.html" class="algo-card">
-                        <h3>Number of Islands</h3>
-                        <p>Count distinct islands in a 2D grid using graph traversal.</p>
-                        <span class="algo-tag">DFS / BFS</span>
+                        <div class="algo-content">
+                            <h3>Number of Islands</h3>
+                            <p>Count distinct islands in a 2D grid using graph traversal.</p>
+                            <span class="algo-tag">DFS / BFS</span>
+                        </div>
+                        <div class="algo-svg">
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Water background -->
+                                <rect x="5" y="10" width="70" height="60" rx="5" fill="#1a3a5a" opacity="0.5"/>
+                                <!-- Island 1 -->
+                                <rect x="10" y="15" width="10" height="10" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="20" y="15" width="10" height="10" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="10" y="25" width="10" height="10" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <!-- Island 2 -->
+                                <rect x="45" y="20" width="10" height="10" rx="2" fill="#ff6b6b"/>
+                                <rect x="55" y="20" width="10" height="10" rx="2" fill="#ff6b6b"/>
+                                <rect x="55" y="30" width="10" height="10" rx="2" fill="#ff6b6b"/>
+                                <!-- Island 3 -->
+                                <rect x="20" y="50" width="10" height="10" rx="2" fill="#ffd700"/>
+                                <!-- Count badge -->
+                                <circle cx="68" cy="58" r="10" fill="#00d9ff"/>
+                                <text x="68" y="62" fill="#1a1a2e" font-size="12" font-weight="bold" text-anchor="middle">3</text>
+                            </svg>
+                        </div>
                     </a>
                     <a href="matrix/flood-fill/index.html" class="algo-card">
-                        <h3>Flood Fill</h3>
-                        <p>Fill connected pixels with a new color starting from a point.</p>
-                        <span class="algo-tag">BFS</span>
+                        <div class="algo-content">
+                            <h3>Flood Fill</h3>
+                            <p>Fill connected pixels with a new color starting from a point.</p>
+                            <span class="algo-tag">BFS</span>
+                        </div>
+                        <div class="algo-svg">
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Grid cells -->
+                                <rect x="10" y="15" width="12" height="12" rx="2" fill="#3a3a5a"/>
+                                <rect x="24" y="15" width="12" height="12" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="38" y="15" width="12" height="12" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="52" y="15" width="12" height="12" rx="2" fill="#3a3a5a"/>
+                                <rect x="10" y="29" width="12" height="12" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="24" y="29" width="12" height="12" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="38" y="29" width="12" height="12" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="52" y="29" width="12" height="12" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="10" y="43" width="12" height="12" rx="2" fill="#3a3a5a"/>
+                                <rect x="24" y="43" width="12" height="12" rx="2" fill="#3a3a5a"/>
+                                <rect x="38" y="43" width="12" height="12" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="52" y="43" width="12" height="12" rx="2" fill="#3a3a5a"/>
+                                <!-- Paint bucket icon -->
+                                <path d="M60 62 L70 72 L75 67 Q78 70 75 73 L65 78 Q62 80 60 77 L55 72 Z" fill="#00d9ff"/>
+                                <ellipse cx="68" cy="65" rx="3" ry="2" fill="#4ecdc4"/>
+                            </svg>
+                        </div>
                     </a>
                     <a href="matrix/binary-matrix-shortest-path/index.html" class="algo-card">
-                        <h3>Binary Matrix Shortest Path</h3>
-                        <p>Find the shortest clear path in a binary matrix using 8-directional BFS.</p>
-                        <span class="algo-tag">BFS</span>
+                        <div class="algo-content">
+                            <h3>Binary Matrix Shortest Path</h3>
+                            <p>Find the shortest clear path in a binary matrix using 8-directional BFS.</p>
+                            <span class="algo-tag">BFS</span>
+                        </div>
+                        <div class="algo-svg">
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Grid -->
+                                <rect x="10" y="10" width="12" height="12" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="24" y="10" width="12" height="12" rx="2" fill="#1a1a2e" stroke="#333"/>
+                                <rect x="38" y="10" width="12" height="12" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="52" y="10" width="12" height="12" rx="2" fill="#3a3a5a"/>
+                                <rect x="10" y="24" width="12" height="12" rx="2" fill="#3a3a5a"/>
+                                <rect x="24" y="24" width="12" height="12" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="38" y="24" width="12" height="12" rx="2" fill="#1a1a2e" stroke="#333"/>
+                                <rect x="52" y="24" width="12" height="12" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="10" y="38" width="12" height="12" rx="2" fill="#3a3a5a"/>
+                                <rect x="24" y="38" width="12" height="12" rx="2" fill="#3a3a5a"/>
+                                <rect x="38" y="38" width="12" height="12" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <rect x="52" y="38" width="12" height="12" rx="2" fill="#4ecdc4" class="animate-on-hover"/>
+                                <!-- Start marker -->
+                                <text x="16" y="19" fill="#1a1a2e" font-size="8" font-weight="bold">S</text>
+                                <!-- Goal marker -->
+                                <text x="57" y="47" fill="#1a1a2e" font-size="8" font-weight="bold">G</text>
+                                <!-- Path line -->
+                                <path d="M16 22 L30 30 L44 16 L58 30 L58 38" stroke="#ffd700" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,2"/>
+                                <!-- Distance badge -->
+                                <circle cx="16" cy="58" r="8" fill="#00d9ff"/>
+                                <text x="16" y="62" fill="#1a1a2e" font-size="9" font-weight="bold" text-anchor="middle">5</text>
+                                <text x="32" y="62" fill="#888" font-size="8">steps</text>
+                            </svg>
+                        </div>
                     </a>
                 </div>
             </div>
