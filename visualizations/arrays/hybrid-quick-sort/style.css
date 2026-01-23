@@ -1,0 +1,241 @@
+/* Hybrid Quick Sort - Algorithm-specific styles */
+
+/* Array box states */
+.array-box.pivot {
+    background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+    border-color: #ffcc00;
+    color: #333;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+.array-box.less-than {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+    border-color: #ff8080;
+}
+
+.array-box.equal-to {
+    background: linear-gradient(135deg, #a8a8a8 0%, #888888 100%);
+    border-color: #bbbbbb;
+}
+
+.array-box.greater-than {
+    background: linear-gradient(135deg, #5b8def 0%, #4a7de0 100%);
+    border-color: #7ba3ff;
+}
+
+.array-box.sorted {
+    background: linear-gradient(135deg, #4ecdc4 0%, #2eb886 100%);
+    border-color: #5fd9a2;
+}
+
+.array-box.inactive {
+    background: linear-gradient(135deg, #3a3a5a 0%, #2a2a4a 100%);
+    border-color: #4a4a6a;
+    opacity: 0.5;
+}
+
+.array-box.current {
+    border-color: #ffaa00;
+    box-shadow: 0 0 12px rgba(255, 170, 0, 0.5);
+}
+
+/* Info box colors */
+.info-box.pivot-box h3 {
+    color: #ffd700;
+}
+
+.info-box.low h3 {
+    color: #ff6b6b;
+}
+
+.info-box.mid h3 {
+    color: #ffaa00;
+}
+
+.info-box.high h3 {
+    color: #5b8def;
+}
+
+.pointer-desc {
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Info panel layout - 4 columns for pivot, low, mid, high */
+.info-panel {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .info-panel {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Call Stack Section */
+.call-stack-section {
+    margin: 20px 0;
+}
+
+.call-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+    background: #2a2a4a;
+    border-radius: 8px;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.stack-item {
+    padding: 8px 15px;
+    background: linear-gradient(135deg, #4a4a6a 0%, #3a3a5a 100%);
+    border: 1px solid #5a5a7a;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 14px;
+    color: #00d9ff;
+}
+
+.stack-item.next {
+    background: linear-gradient(135deg, #3a5a6a 0%, #2a4a5a 100%);
+    border-color: #00d9ff;
+    box-shadow: 0 0 8px rgba(0, 217, 255, 0.3);
+}
+
+.stack-empty {
+    color: #666;
+    font-style: italic;
+}
+
+/* Current Range Display */
+.current-range-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+    padding: 10px 20px;
+    background: #2a2a4a;
+    border-radius: 8px;
+    border: 1px solid #3a3a5a;
+}
+
+.range-label {
+    color: #888;
+    font-size: 14px;
+}
+
+.range-value {
+    font-family: monospace;
+    font-size: 16px;
+    color: #00d9ff;
+    font-weight: bold;
+}
+
+/* Legend colors */
+.legend-color.pivot-color {
+    background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+    border-color: #ffcc00;
+}
+
+.legend-color.less-than-color {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+    border-color: #ff8080;
+}
+
+.legend-color.equal-to-color {
+    background: linear-gradient(135deg, #a8a8a8 0%, #888888 100%);
+    border-color: #bbbbbb;
+}
+
+.legend-color.greater-than-color {
+    background: linear-gradient(135deg, #5b8def 0%, #4a7de0 100%);
+    border-color: #7ba3ff;
+}
+
+.legend-color.sorted-color {
+    background: linear-gradient(135deg, #4ecdc4 0%, #2eb886 100%);
+    border-color: #5fd9a2;
+}
+
+.legend-color.inactive-color {
+    background: linear-gradient(135deg, #3a3a5a 0%, #2a2a4a 100%);
+    border-color: #4a4a6a;
+    opacity: 0.5;
+}
+
+/* Pointer legend */
+.pointer-legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.pointer-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.pointer-item.low {
+    color: #ff6b6b;
+}
+
+.pointer-item.mid {
+    color: #ffaa00;
+}
+
+.pointer-item.high {
+    color: #5b8def;
+}
+
+/* Pointer styles for array */
+.pointer.low {
+    color: #ff6b6b;
+}
+
+.pointer.mid {
+    color: #ffaa00;
+}
+
+.pointer.high {
+    color: #5b8def;
+}
+
+/* Phase indicator in status */
+.phase-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.phase-badge.selecting {
+    background: #ffd700;
+    color: #333;
+}
+
+.phase-badge.partitioning {
+    background: #00d9ff;
+    color: #1a1a2e;
+}
+
+.phase-badge.done {
+    background: #4ecdc4;
+    color: #1a1a2e;
+}
