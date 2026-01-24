@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge K Sorted Lists - Divide & Conquer</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Merge K Sorted Lists</h1>
+        <p class="description">Merge k sorted linked lists using divide and conquer with O(n log k) time complexity</p>
+
+        <div class="controls">
+            <div class="input-group textarea-group">
+                <label>K Sorted Lists (one per line):</label>
+                <textarea id="listsInput" rows="4" placeholder="1, 4, 5&#10;1, 3, 4&#10;2, 6">1, 4, 5
+1, 3, 4
+2, 6</textarea>
+            </div>
+            <button class="btn-random" id="randomBtn">Random</button>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label>Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="800">
+            </div>
+        </div>
+
+        <div class="main-content">
+        <div class="visualization">
+            <div class="section-title">K Linked Lists</div>
+
+            <div class="lists-wrapper" id="listsWrapper">
+                <div class="lists-container" id="listsDisplay"></div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-box phase-box">
+                    <h3>Phase</h3>
+                    <div class="info-value" id="phaseValue">-</div>
+                    <div class="pointer-desc">Current operation</div>
+                </div>
+                <div class="info-box pair-box">
+                    <h3>Active Pair</h3>
+                    <div class="info-value" id="pairValue">-</div>
+                    <div class="pointer-desc">Lists being merged</div>
+                </div>
+                <div class="info-box depth-box">
+                    <h3>Depth</h3>
+                    <div class="info-value" id="depthValue">0</div>
+                    <div class="pointer-desc">Recursion level</div>
+                </div>
+                <div class="info-box k-box">
+                    <h3>K</h3>
+                    <div class="info-value" id="kValue">0</div>
+                    <div class="pointer-desc">Number of lists</div>
+                </div>
+            </div>
+
+            <div class="merge-info" id="mergeInfo" style="display: none;">
+                <div class="merge-title">Merging Two Lists</div>
+                <div class="merge-pointers">
+                    <div class="merge-ptr left-merge-ptr">
+                        <span class="ptr-label">Left:</span>
+                        <span class="ptr-value" id="leftPtrValue">-</span>
+                    </div>
+                    <div class="merge-ptr right-merge-ptr">
+                        <span class="ptr-label">Right:</span>
+                        <span class="ptr-value" id="rightPtrValue">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status" id="status">
+                Click "Step" or "Play" to start merging the k sorted lists
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color default-color"></div>
+                    <span>Inactive</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color active-color"></div>
+                    <span>Active</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color comparing-color"></div>
+                    <span>Comparing</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color merged-color"></div>
+                    <span>Merged</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-panel">
+            <div class="section-title">Python Code - Merge K Sorted Lists</div>
+            <div class="code-line" id="code-0">
+                <span class="code-keyword">def</span> <span class="code-function">mergeKLists</span>(lists):
+            </div>
+            <div class="code-line" id="code-1">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if not</span> lists:
+            </div>
+            <div class="code-line" id="code-2">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-keyword">None</span>
+            </div>
+            <div class="code-line" id="code-3">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> len(lists) == <span class="code-number">1</span>:
+            </div>
+            <div class="code-line" id="code-4">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> lists[<span class="code-number">0</span>]
+            </div>
+            <div class="code-line" id="code-5">
+                &nbsp;&nbsp;&nbsp;&nbsp;mid = len(lists) // <span class="code-number">2</span>
+            </div>
+            <div class="code-line" id="code-6">
+                &nbsp;&nbsp;&nbsp;&nbsp;left = mergeKLists(lists[:mid])
+            </div>
+            <div class="code-line" id="code-7">
+                &nbsp;&nbsp;&nbsp;&nbsp;right = mergeKLists(lists[mid:])
+            </div>
+            <div class="code-line" id="code-8">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> _merge(left, right)
+            </div>
+            <div class="code-line" id="code-9">
+                &nbsp;
+            </div>
+            <div class="code-line" id="code-10">
+                <span class="code-keyword">def</span> <span class="code-function">_merge</span>(first, second):
+            </div>
+            <div class="code-line" id="code-11">
+                &nbsp;&nbsp;&nbsp;&nbsp;dummy = ListNode()
+            </div>
+            <div class="code-line" id="code-12">
+                &nbsp;&nbsp;&nbsp;&nbsp;tail = dummy
+            </div>
+            <div class="code-line" id="code-13">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">while</span> first <span class="code-keyword">and</span> second:
+            </div>
+            <div class="code-line" id="code-14">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> first.val &lt; second.val:
+            </div>
+            <div class="code-line" id="code-15">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tail.next = first; first = first.next
+            </div>
+            <div class="code-line" id="code-16">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">else</span>:
+            </div>
+            <div class="code-line" id="code-17">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tail.next = second; second = second.next
+            </div>
+            <div class="code-line" id="code-18">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tail = tail.next
+            </div>
+            <div class="code-line" id="code-19">
+                &nbsp;&nbsp;&nbsp;&nbsp;tail.next = first <span class="code-keyword">or</span> second
+            </div>
+            <div class="code-line" id="code-20">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> dummy.next
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
