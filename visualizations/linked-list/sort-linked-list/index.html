@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort Linked List - Merge Sort</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Sort Linked List</h1>
+        <p class="description">Sort a linked list in ascending order using merge sort with O(n log n) time complexity</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>Linked List:</label>
+                <input type="text" id="listInput" value="4, 2, 1, 3, 5, 6" placeholder="e.g., 4, 2, 1, 3">
+            </div>
+            <button class="btn-random" id="randomBtn">Random</button>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label>Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="800">
+            </div>
+        </div>
+
+        <div class="main-content">
+        <div class="visualization">
+            <div class="section-title">Linked List</div>
+
+            <div class="linked-list-wrapper" id="listWrapper">
+                <div class="linked-list-container" id="listDisplay"></div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-box phase-box">
+                    <h3>Phase</h3>
+                    <div class="info-value" id="phaseValue">-</div>
+                    <div class="pointer-desc">Current operation</div>
+                </div>
+                <div class="info-box slow-box">
+                    <h3>Slow Ptr</h3>
+                    <div class="info-value" id="slowValue">-</div>
+                    <div class="pointer-desc">Finds middle</div>
+                </div>
+                <div class="info-box fast-box">
+                    <h3>Fast Ptr</h3>
+                    <div class="info-value" id="fastValue">-</div>
+                    <div class="pointer-desc">Moves 2x speed</div>
+                </div>
+                <div class="info-box depth-box">
+                    <h3>Depth</h3>
+                    <div class="info-value" id="depthValue">0</div>
+                    <div class="pointer-desc">Recursion level</div>
+                </div>
+            </div>
+
+            <div class="merge-info" id="mergeInfo" style="display: none;">
+                <div class="merge-title">Merging Two Sorted Lists</div>
+                <div class="merge-pointers">
+                    <div class="merge-ptr left-merge-ptr">
+                        <span class="ptr-label">Left:</span>
+                        <span class="ptr-value" id="leftPtrValue">-</span>
+                    </div>
+                    <div class="merge-ptr right-merge-ptr">
+                        <span class="ptr-label">Right:</span>
+                        <span class="ptr-value" id="rightPtrValue">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status" id="status">
+                Click "Step" or "Play" to start sorting the linked list
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color default-color"></div>
+                    <span>Unsorted</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color finding-mid-color"></div>
+                    <span>Finding Mid</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color split-color"></div>
+                    <span>Split Point</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color comparing-color"></div>
+                    <span>Comparing</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color selected-color"></div>
+                    <span>Selected</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color sorted-color"></div>
+                    <span>Sorted</span>
+                </div>
+            </div>
+
+            <div class="pointer-legend">
+                <div class="pointer-item slow">&#9660; slow - moves 1 step</div>
+                <div class="pointer-item fast">&#9660; fast - moves 2 steps</div>
+            </div>
+        </div>
+
+        <div class="code-panel">
+            <div class="section-title">Python Code - Merge Sort (Linked List)</div>
+            <div class="code-line" id="code-0">
+                <span class="code-keyword">def</span> <span class="code-function">sortList</span>(head):
+            </div>
+            <div class="code-line" id="code-1">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if not</span> head <span class="code-keyword">or not</span> head.next:
+            </div>
+            <div class="code-line" id="code-2">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> head
+            </div>
+            <div class="code-line" id="code-3">
+                &nbsp;&nbsp;&nbsp;&nbsp;mid = getMid(head)
+            </div>
+            <div class="code-line" id="code-4">
+                &nbsp;&nbsp;&nbsp;&nbsp;left = head
+            </div>
+            <div class="code-line" id="code-5">
+                &nbsp;&nbsp;&nbsp;&nbsp;right = mid.next
+            </div>
+            <div class="code-line" id="code-6">
+                &nbsp;&nbsp;&nbsp;&nbsp;mid.next = <span class="code-keyword">None</span> <span class="code-comment"># Split the list</span>
+            </div>
+            <div class="code-line" id="code-7">
+                &nbsp;&nbsp;&nbsp;&nbsp;left_sorted = sortList(left)
+            </div>
+            <div class="code-line" id="code-8">
+                &nbsp;&nbsp;&nbsp;&nbsp;right_sorted = sortList(right)
+            </div>
+            <div class="code-line" id="code-9">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> merge(left_sorted, right_sorted)
+            </div>
+            <div class="code-line" id="code-10">
+                &nbsp;
+            </div>
+            <div class="code-line" id="code-11">
+                <span class="code-keyword">def</span> <span class="code-function">getMid</span>(head): <span class="code-comment"># Slow/Fast pointers</span>
+            </div>
+            <div class="code-line" id="code-12">
+                &nbsp;&nbsp;&nbsp;&nbsp;slow, fast = head, head.next
+            </div>
+            <div class="code-line" id="code-13">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">while</span> fast <span class="code-keyword">and</span> fast.next:
+            </div>
+            <div class="code-line" id="code-14">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slow = slow.next
+            </div>
+            <div class="code-line" id="code-15">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fast = fast.next.next
+            </div>
+            <div class="code-line" id="code-16">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> slow
+            </div>
+            <div class="code-line" id="code-17">
+                &nbsp;
+            </div>
+            <div class="code-line" id="code-18">
+                <span class="code-keyword">def</span> <span class="code-function">merge</span>(l1, l2): <span class="code-comment"># Merge two sorted lists</span>
+            </div>
+            <div class="code-line" id="code-19">
+                &nbsp;&nbsp;&nbsp;&nbsp;dummy = ListNode()
+            </div>
+            <div class="code-line" id="code-20">
+                &nbsp;&nbsp;&nbsp;&nbsp;tail = dummy
+            </div>
+            <div class="code-line" id="code-21">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">while</span> l1 <span class="code-keyword">and</span> l2:
+            </div>
+            <div class="code-line" id="code-22">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> l1.val &lt; l2.val:
+            </div>
+            <div class="code-line" id="code-23">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tail.next = l1; l1 = l1.next
+            </div>
+            <div class="code-line" id="code-24">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">else</span>:
+            </div>
+            <div class="code-line" id="code-25">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tail.next = l2; l2 = l2.next
+            </div>
+            <div class="code-line" id="code-26">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tail = tail.next
+            </div>
+            <div class="code-line" id="code-27">
+                &nbsp;&nbsp;&nbsp;&nbsp;tail.next = l1 <span class="code-keyword">or</span> l2
+            </div>
+            <div class="code-line" id="code-28">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> dummy.next
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

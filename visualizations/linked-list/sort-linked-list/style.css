@@ -1,0 +1,345 @@
+/* Sort Linked List - Algorithm-specific styles */
+
+/* Linked List Container */
+.linked-list-wrapper {
+    position: relative;
+    padding: 60px 20px 40px 20px;
+    min-height: 180px;
+    overflow-x: auto;
+}
+
+.linked-list-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 120px;
+}
+
+/* Individual Node */
+.linked-list-node {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.node-box {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2a2a4a 0%, #1e1e3f 100%);
+    border: 2px solid #444;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.node-index {
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: #666;
+}
+
+.node-pointer {
+    font-size: 20px;
+    color: #555;
+    padding: 0 2px;
+    transition: all 0.3s ease;
+}
+
+.node-pointer.hidden {
+    visibility: hidden;
+}
+
+.node-pointer.active {
+    color: #00d9ff;
+}
+
+/* Node States */
+.node-box.finding-mid {
+    border-color: #ffaa00;
+    background: linear-gradient(135deg, #3a3a2a 0%, #2a2a1a 100%);
+}
+
+.node-box.slow-ptr {
+    border-color: #4ecdc4;
+    box-shadow: 0 0 12px rgba(78, 205, 196, 0.5);
+}
+
+.node-box.fast-ptr {
+    border-color: #ff6b6b;
+    box-shadow: 0 0 12px rgba(255, 107, 107, 0.5);
+}
+
+.node-box.split-point {
+    border-color: #ff6b6b;
+    background: linear-gradient(135deg, #4a2a2a 0%, #3a1a1a 100%);
+}
+
+.node-box.left-half {
+    border-color: #5b8def;
+    background: linear-gradient(135deg, #2a3a5a 0%, #1a2a4a 100%);
+}
+
+.node-box.right-half {
+    border-color: #ffd700;
+    background: linear-gradient(135deg, #3a3a2a 0%, #2a2a1a 100%);
+}
+
+.node-box.comparing {
+    border-color: #ffaa00;
+    box-shadow: 0 0 15px rgba(255, 170, 0, 0.5);
+    animation: pulse 0.6s ease-in-out infinite;
+}
+
+.node-box.selected {
+    border-color: #4ecdc4;
+    background: linear-gradient(135deg, #2a4a4a 0%, #1a3a3a 100%);
+    box-shadow: 0 0 12px rgba(78, 205, 196, 0.5);
+}
+
+.node-box.sorted {
+    border-color: #4ecdc4;
+    background: linear-gradient(135deg, #1a3a2a 0%, #0a2a1a 100%);
+}
+
+.node-box.inactive {
+    opacity: 0.4;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Pointer Labels */
+.ptr-label-container {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.ptr-label {
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+.ptr-label.slow {
+    background: #4ecdc4;
+    color: #1a1a2e;
+}
+
+.ptr-label.fast {
+    background: #ff6b6b;
+    color: #1a1a2e;
+}
+
+.ptr-label.left {
+    background: #5b8def;
+    color: #1a1a2e;
+}
+
+.ptr-label.right {
+    background: #ffd700;
+    color: #1a1a2e;
+}
+
+.ptr-arrow {
+    font-size: 12px;
+}
+
+.ptr-arrow.slow {
+    color: #4ecdc4;
+}
+
+.ptr-arrow.fast {
+    color: #ff6b6b;
+}
+
+/* Info Panel */
+.info-panel {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.info-box.phase-box h3 {
+    color: #00d9ff;
+}
+
+.info-box.slow-box h3 {
+    color: #4ecdc4;
+}
+
+.info-box.fast-box h3 {
+    color: #ff6b6b;
+}
+
+.info-box.depth-box h3 {
+    color: #ffd700;
+}
+
+.pointer-desc {
+    color: #888;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+/* Merge Info Panel */
+.merge-info {
+    background: #2a2a4a;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    border: 1px solid #3a3a5a;
+}
+
+.merge-title {
+    color: #00d9ff;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.merge-pointers {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.merge-ptr {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.merge-ptr .ptr-label {
+    font-size: 14px;
+    color: #888;
+}
+
+.merge-ptr .ptr-value {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+
+.left-merge-ptr .ptr-value {
+    background: #5b8def;
+    color: #1a1a2e;
+}
+
+.right-merge-ptr .ptr-value {
+    background: #ffd700;
+    color: #1a1a2e;
+}
+
+/* Legend Colors */
+.legend-color.default-color {
+    background: linear-gradient(135deg, #2a2a4a 0%, #1e1e3f 100%);
+    border: 2px solid #444;
+}
+
+.legend-color.finding-mid-color {
+    background: linear-gradient(135deg, #3a3a2a 0%, #2a2a1a 100%);
+    border: 2px solid #ffaa00;
+}
+
+.legend-color.split-color {
+    background: linear-gradient(135deg, #4a2a2a 0%, #3a1a1a 100%);
+    border: 2px solid #ff6b6b;
+}
+
+.legend-color.comparing-color {
+    background: linear-gradient(135deg, #3a3a2a 0%, #2a2a1a 100%);
+    border: 2px solid #ffaa00;
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.4);
+}
+
+.legend-color.selected-color {
+    background: linear-gradient(135deg, #2a4a4a 0%, #1a3a3a 100%);
+    border: 2px solid #4ecdc4;
+}
+
+.legend-color.sorted-color {
+    background: linear-gradient(135deg, #1a3a2a 0%, #0a2a1a 100%);
+    border: 2px solid #4ecdc4;
+}
+
+/* Pointer Legend */
+.pointer-legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.pointer-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.pointer-item.slow {
+    color: #4ecdc4;
+}
+
+.pointer-item.fast {
+    color: #ff6b6b;
+}
+
+/* Split visualization - gap between halves */
+.node-box.split-gap-after + .linked-list-node {
+    margin-left: 30px;
+}
+
+.split-divider {
+    width: 2px;
+    height: 40px;
+    background: #ff6b6b;
+    margin: 0 15px;
+    opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .node-box {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+
+    .merge-pointers {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .info-panel {
+        grid-template-columns: 1fr;
+    }
+}
