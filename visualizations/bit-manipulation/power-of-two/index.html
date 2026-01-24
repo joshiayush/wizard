@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power of Two - Bit Manipulation</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Power of Two</h1>
+        <p class="description">Check if a number is a power of two using bit manipulation: n & (n-1) == 0</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>Number (n):</label>
+                <input type="number" id="numberInput" value="8" min="0" max="255" placeholder="e.g., 8">
+            </div>
+            <button class="btn-random" id="randomBtn">Random</button>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label>Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="800">
+            </div>
+        </div>
+
+        <div class="main-content">
+        <div class="visualization">
+            <div class="section-title">Binary AND Operation</div>
+
+            <div class="bits-wrapper" id="bitsWrapper">
+                <div class="bits-container" id="bitsDisplay">
+                    <!-- Bit rows will be rendered here -->
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-box n-box">
+                    <h3>n</h3>
+                    <div class="info-value" id="nValue">8</div>
+                    <div class="info-desc">Input number</div>
+                </div>
+                <div class="info-box nminus-box">
+                    <h3>n - 1</h3>
+                    <div class="info-value" id="nMinusValue">7</div>
+                    <div class="info-desc">Subtract one</div>
+                </div>
+                <div class="info-box bit-box-info">
+                    <h3>Current Bit</h3>
+                    <div class="info-value" id="currentBitValue">-</div>
+                    <div class="info-desc">Position</div>
+                </div>
+                <div class="info-box result-box">
+                    <h3>Result</h3>
+                    <div class="info-value" id="resultValue">-</div>
+                    <div class="info-desc">n & (n-1)</div>
+                </div>
+            </div>
+
+            <div class="status" id="status">
+                Click "Step" or "Play" to visualize the AND operation bit by bit
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color bit-one-color"></div>
+                    <span>Bit = 1</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color bit-zero-color"></div>
+                    <span>Bit = 0</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color active-color"></div>
+                    <span>Active</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color result-color"></div>
+                    <span>Result</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-panel">
+            <div class="section-title">Python Code - Power of Two</div>
+            <div class="code-line" id="code-0">
+                <span class="code-keyword">def</span> <span class="code-function">isPowerOfTwo</span>(n):
+            </div>
+            <div class="code-line" id="code-1">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> n == <span class="code-number">0</span>:
+            </div>
+            <div class="code-line" id="code-2">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-keyword">False</span>
+            </div>
+            <div class="code-line" id="code-3">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> n & (n - <span class="code-number">1</span>) == <span class="code-number">0</span>
+            </div>
+            <div class="code-line" id="code-4">
+                &nbsp;
+            </div>
+            <div class="code-line" id="code-5">
+                <span class="code-comment"># Power of 2: only one bit set</span>
+            </div>
+            <div class="code-line" id="code-6">
+                <span class="code-comment"># 8 = 1000, 7 = 0111</span>
+            </div>
+            <div class="code-line" id="code-7">
+                <span class="code-comment"># 1000 & 0111 = 0000 (zero!)</span>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

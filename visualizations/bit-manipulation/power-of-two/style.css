@@ -1,0 +1,285 @@
+/* Power of Two - Bit Manipulation Visualization Styles */
+
+/* Bits Container */
+.bits-wrapper {
+    padding: 30px 20px;
+    min-height: 300px;
+}
+
+.bits-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Bit Row */
+.bit-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bit-label {
+    min-width: 100px;
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #888;
+}
+
+.bit-label .decimal {
+    color: #00d9ff;
+    font-weight: bold;
+}
+
+.bits-group {
+    display: flex;
+    gap: 4px;
+}
+
+/* Individual Bit Box */
+.bit-box {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Bit States */
+.bit-box.zero {
+    background: linear-gradient(135deg, #2a2a4a 0%, #1e1e3f 100%);
+    border: 2px solid #444;
+    color: #666;
+}
+
+.bit-box.one {
+    background: linear-gradient(135deg, #2a4a5a 0%, #1a3a4a 100%);
+    border: 2px solid #00d9ff;
+    color: #00d9ff;
+}
+
+.bit-box.active {
+    box-shadow: 0 0 20px rgba(255, 170, 0, 0.6);
+    border-color: #ffaa00 !important;
+    animation: pulse 0.6s ease-in-out infinite;
+}
+
+.bit-box.result {
+    background: linear-gradient(135deg, #1a3a2a 0%, #0a2a1a 100%);
+    border: 2px solid #4ecdc4;
+    color: #4ecdc4;
+}
+
+.bit-box.result.zero {
+    color: #4ecdc4;
+}
+
+.bit-box.result.one {
+    background: linear-gradient(135deg, #3a2a1a 0%, #2a1a0a 100%);
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+}
+
+.bit-box.empty {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border: 2px dashed #333;
+    color: #333;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+/* Bit Index (position) */
+.bit-index {
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: #555;
+}
+
+/* Operator Row */
+.operator-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.operator {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffaa00;
+    min-width: 100px;
+    text-align: right;
+}
+
+.operator-line {
+    width: 100%;
+    max-width: 400px;
+    height: 2px;
+    background: #444;
+}
+
+/* Result Row */
+.bit-row.result-row {
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 2px solid #333;
+}
+
+.bit-row.result-row .bit-label {
+    color: #4ecdc4;
+}
+
+/* Equals indicator */
+.equals-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.equals-symbol {
+    font-size: 24px;
+    font-weight: bold;
+    color: #888;
+    min-width: 100px;
+    text-align: right;
+}
+
+.equals-value {
+    font-size: 28px;
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 8px;
+}
+
+.equals-value.is-zero {
+    background: linear-gradient(135deg, #1a3a2a 0%, #0a2a1a 100%);
+    border: 2px solid #4ecdc4;
+    color: #4ecdc4;
+}
+
+.equals-value.not-zero {
+    background: linear-gradient(135deg, #3a2a2a 0%, #2a1a1a 100%);
+    border: 2px solid #ff6b6b;
+    color: #ff6b6b;
+}
+
+.verdict {
+    font-size: 14px;
+    margin-left: 15px;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+.verdict.power {
+    background: rgba(78, 205, 196, 0.2);
+    color: #4ecdc4;
+}
+
+.verdict.not-power {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+}
+
+/* Info Panel */
+.info-panel {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.info-box.n-box h3 {
+    color: #00d9ff;
+}
+
+.info-box.nminus-box h3 {
+    color: #5b8def;
+}
+
+.info-box.bit-box-info h3 {
+    color: #ffaa00;
+}
+
+.info-box.result-box h3 {
+    color: #4ecdc4;
+}
+
+.info-desc {
+    color: #666;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+/* Legend Colors */
+.legend-color.bit-one-color {
+    background: linear-gradient(135deg, #2a4a5a 0%, #1a3a4a 100%);
+    border: 2px solid #00d9ff;
+}
+
+.legend-color.bit-zero-color {
+    background: linear-gradient(135deg, #2a2a4a 0%, #1e1e3f 100%);
+    border: 2px solid #444;
+}
+
+.legend-color.active-color {
+    background: linear-gradient(135deg, #3a3a2a 0%, #2a2a1a 100%);
+    border: 2px solid #ffaa00;
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.4);
+}
+
+.legend-color.result-color {
+    background: linear-gradient(135deg, #1a3a2a 0%, #0a2a1a 100%);
+    border: 2px solid #4ecdc4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bit-box {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+
+    .bit-label {
+        min-width: 80px;
+        font-size: 12px;
+    }
+
+    .operator {
+        min-width: 80px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .info-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .bit-box {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .bits-group {
+        gap: 2px;
+    }
+}
