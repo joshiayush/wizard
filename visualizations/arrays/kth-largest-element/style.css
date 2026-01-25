@@ -1,0 +1,314 @@
+/* Kth Largest Element - Max Heap Visualization Styles */
+
+/* Heap Tree Container */
+.heap-wrapper {
+    padding: 20px;
+    min-height: 250px;
+    display: flex;
+    justify-content: center;
+}
+
+.heap-tree {
+    width: 100%;
+    max-width: 600px;
+    height: 220px;
+}
+
+/* Tree Node Styling */
+.tree-node {
+    cursor: default;
+    transition: all 0.3s ease;
+}
+
+.tree-node circle {
+    fill: #2a2a4a;
+    stroke: #444;
+    stroke-width: 2;
+    transition: all 0.3s ease;
+}
+
+.tree-node text {
+    fill: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-anchor: middle;
+    dominant-baseline: central;
+    pointer-events: none;
+}
+
+.tree-node .node-index {
+    fill: #666;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+/* Node States */
+.tree-node.root circle {
+    fill: #3a3a2a;
+    stroke: #ffd700;
+    stroke-width: 3;
+}
+
+.tree-node.current circle {
+    fill: #3a2a1a;
+    stroke: #ffaa00;
+    stroke-width: 3;
+    filter: drop-shadow(0 0 8px rgba(255, 170, 0, 0.6));
+}
+
+.tree-node.parent circle {
+    fill: #1a3a4a;
+    stroke: #00d9ff;
+    stroke-width: 3;
+}
+
+.tree-node.child circle {
+    fill: #1a2a4a;
+    stroke: #5b8def;
+    stroke-width: 3;
+}
+
+.tree-node.larger-child circle {
+    fill: #1a3a2a;
+    stroke: #4ecdc4;
+    stroke-width: 3;
+}
+
+.tree-node.swapping circle {
+    animation: nodeSwap 0.4s ease;
+}
+
+@keyframes nodeSwap {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Tree Edges */
+.tree-edge {
+    stroke: #444;
+    stroke-width: 2;
+    fill: none;
+    transition: all 0.3s ease;
+}
+
+.tree-edge.active {
+    stroke: #00d9ff;
+    stroke-width: 3;
+}
+
+.tree-edge.swapping {
+    stroke: #ffaa00;
+    stroke-width: 3;
+    animation: edgePulse 0.4s ease;
+}
+
+@keyframes edgePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Heap Array */
+.array-wrapper {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.heap-array {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.array-box {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2a2a4a 0%, #1e1e3f 100%);
+    border: 2px solid #444;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.array-box .arr-index {
+    position: absolute;
+    bottom: -16px;
+    font-size: 10px;
+    color: #666;
+    font-weight: normal;
+}
+
+.array-box.root {
+    border-color: #ffd700;
+    background: linear-gradient(135deg, #3a3a2a 0%, #2a2a1a 100%);
+}
+
+.array-box.current {
+    border-color: #ffaa00;
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.5);
+}
+
+.array-box.parent {
+    border-color: #00d9ff;
+}
+
+.array-box.child {
+    border-color: #5b8def;
+}
+
+.array-box.larger-child {
+    border-color: #4ecdc4;
+}
+
+/* Extracted Elements Section */
+.extracted-section {
+    margin-top: 20px;
+    padding: 15px 20px;
+}
+
+.extracted-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 50px;
+    padding: 10px;
+    background: #1e1e3f;
+    border-radius: 8px;
+}
+
+.extracted-box {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a3a2a 0%, #0a2a1a 100%);
+    border: 2px solid #4ecdc4;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #4ecdc4;
+    position: relative;
+}
+
+.extracted-box .extract-order {
+    position: absolute;
+    top: -12px;
+    font-size: 10px;
+    color: #888;
+    font-weight: normal;
+}
+
+.extracted-box.latest {
+    animation: extractPulse 0.5s ease;
+    box-shadow: 0 0 12px rgba(78, 205, 196, 0.5);
+}
+
+.extracted-box.result {
+    border-color: #ffd700;
+    color: #ffd700;
+    background: linear-gradient(135deg, #3a3a2a 0%, #2a2a1a 100%);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+@keyframes extractPulse {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.empty-message {
+    color: #666;
+    font-style: italic;
+}
+
+/* Info Panel */
+.info-panel {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.info-box.phase-box h3 {
+    color: #ffaa00;
+}
+
+.info-box.size-box h3 {
+    color: #00d9ff;
+}
+
+.info-box.k-box h3 {
+    color: #5b8def;
+}
+
+.info-box.result-box h3 {
+    color: #4ecdc4;
+}
+
+.info-desc {
+    color: #666;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+/* Legend Colors */
+.legend-color.root-color {
+    background: linear-gradient(135deg, #3a3a2a 0%, #2a2a1a 100%);
+    border: 2px solid #ffd700;
+}
+
+.legend-color.current-color {
+    background: linear-gradient(135deg, #3a2a1a 0%, #2a1a0a 100%);
+    border: 2px solid #ffaa00;
+    box-shadow: 0 0 6px rgba(255, 170, 0, 0.4);
+}
+
+.legend-color.parent-color {
+    background: linear-gradient(135deg, #1a3a4a 0%, #0a2a3a 100%);
+    border: 2px solid #00d9ff;
+}
+
+.legend-color.child-color {
+    background: linear-gradient(135deg, #1a2a4a 0%, #0a1a3a 100%);
+    border: 2px solid #5b8def;
+}
+
+.legend-color.extracted-color {
+    background: linear-gradient(135deg, #1a3a2a 0%, #0a2a1a 100%);
+    border: 2px solid #4ecdc4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .heap-tree {
+        height: 180px;
+    }
+
+    .array-box, .extracted-box {
+        width: 38px;
+        height: 38px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .info-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .heap-tree {
+        height: 150px;
+    }
+}

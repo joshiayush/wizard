@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kth Largest Element - Max Heap</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Kth Largest Element</h1>
+        <p class="description">Find the kth largest element using a max heap with O(n + k log n) time complexity</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>Array:</label>
+                <input type="text" id="arrayInput" value="3, 2, 1, 5, 6, 4" placeholder="e.g., 3, 2, 1, 5, 6, 4">
+            </div>
+            <div class="input-group">
+                <label>k:</label>
+                <input type="number" id="kInput" value="2" min="1" max="10" style="width: 60px;">
+            </div>
+            <button class="btn-random" id="randomBtn">Random</button>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label>Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="800">
+            </div>
+        </div>
+
+        <div class="main-content">
+        <div class="visualization">
+            <div class="section-title">Max Heap (Tree View)</div>
+
+            <div class="heap-wrapper">
+                <svg id="heapTree" class="heap-tree"></svg>
+            </div>
+
+            <div class="section-title">Heap Array</div>
+            <div class="array-wrapper">
+                <div class="heap-array" id="heapArray"></div>
+            </div>
+
+            <div class="extracted-section">
+                <div class="section-title">Extracted Elements (Largest to Smallest)</div>
+                <div class="extracted-list" id="extractedList"></div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-box phase-box">
+                    <h3>Phase</h3>
+                    <div class="info-value" id="phaseValue">-</div>
+                    <div class="info-desc">Current operation</div>
+                </div>
+                <div class="info-box size-box">
+                    <h3>Heap Size</h3>
+                    <div class="info-value" id="sizeValue">0</div>
+                    <div class="info-desc">Elements in heap</div>
+                </div>
+                <div class="info-box k-box">
+                    <h3>k</h3>
+                    <div class="info-value" id="kValue">2</div>
+                    <div class="info-desc">Target position</div>
+                </div>
+                <div class="info-box result-box">
+                    <h3>Result</h3>
+                    <div class="info-value" id="resultValue">-</div>
+                    <div class="info-desc">kth largest</div>
+                </div>
+            </div>
+
+            <div class="status" id="status">
+                Click "Step" or "Play" to build the heap and find the kth largest element
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color root-color"></div>
+                    <span>Root (Max)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color current-color"></div>
+                    <span>Current</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color parent-color"></div>
+                    <span>Parent</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color child-color"></div>
+                    <span>Child</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color extracted-color"></div>
+                    <span>Extracted</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-panel">
+            <div class="section-title">Python Code - Kth Largest Element</div>
+            <div class="code-line" id="code-0">
+                <span class="code-keyword">def</span> <span class="code-function">findKthLargest</span>(nums, k):
+            </div>
+            <div class="code-line" id="code-1">
+                &nbsp;&nbsp;&nbsp;&nbsp;heap = []
+            </div>
+            <div class="code-line" id="code-2">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> n <span class="code-keyword">in</span> nums:
+            </div>
+            <div class="code-line" id="code-3">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heappush(heap, n) <span class="code-comment"># sift-up</span>
+            </div>
+            <div class="code-line" id="code-4">
+                &nbsp;&nbsp;&nbsp;&nbsp;extracted = []
+            </div>
+            <div class="code-line" id="code-5">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">while</span> len(extracted) &lt; k:
+            </div>
+            <div class="code-line" id="code-6">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;extracted.append(heappop(heap))
+            </div>
+            <div class="code-line" id="code-7">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> extracted[k - <span class="code-number">1</span>]
+            </div>
+            <div class="code-line" id="code-8">
+                &nbsp;
+            </div>
+            <div class="code-line" id="code-9">
+                <span class="code-comment"># sift-up: bubble up if > parent</span>
+            </div>
+            <div class="code-line" id="code-10">
+                <span class="code-comment"># sift-down: sink to larger child</span>
+            </div>
+            <div class="code-line" id="code-11">
+                <span class="code-comment"># Max heap: parent >= children</span>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
