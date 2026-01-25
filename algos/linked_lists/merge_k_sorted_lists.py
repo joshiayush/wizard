@@ -38,7 +38,6 @@ class Solution:
             return None
         if len(lists) == 1:
             return lists[0]
-
         mid = len(lists) // 2
         left = self.mergeKLists(lists[:mid])
         right = self.mergeKLists(lists[mid:])
