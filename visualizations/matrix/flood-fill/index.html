@@ -89,6 +89,7 @@
                     <span>In Queue</span>
                 </div>
             </div>
+
         </div>
 
         <div class="code-panel">
@@ -124,6 +125,82 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queue.<span class="code-function">append</span>((i+di, j+dj))
             </div>
         </div>
+        </div>
+
+        <div class="complexity-section">
+            <input type="checkbox" id="complexity-toggle" class="complexity-toggle-input" checked>
+            <label for="complexity-toggle" class="complexity-header">
+                <span class="complexity-title">Complexity Analysis</span>
+                <span class="complexity-icon"></span>
+            </label>
+            <div class="complexity-content">
+                <input type="radio" id="tab-time" name="complexity-tab" class="complexity-tab-input" checked>
+                <input type="radio" id="tab-space" name="complexity-tab" class="complexity-tab-input">
+                <div class="complexity-columns">
+                    <div class="complexity-stats">
+                        <label for="tab-time" class="complexity-item">
+                            <span class="complexity-label">Time Complexity</span>
+                            <span class="complexity-value">O(m × n)</span>
+                        </label>
+                        <label for="tab-space" class="complexity-item">
+                            <span class="complexity-label">Space Complexity</span>
+                            <span class="complexity-value">O(m × n)</span>
+                        </label>
+                    </div>
+                    <div class="complexity-explanation">
+                        <div class="complexity-detail time-detail">
+                            <h4 class="detail-title">Time Complexity: <span class="big-o">O(m × n)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Each cell visited at most once</li>
+                                        <li>4 neighbors checked per cell: O(1)</li>
+                                        <li>Color change operation: O(1)</li>
+                                        <li>Worst case: entire grid is same color</li>
+                                    </ul>
+                                    <div class="detail-formula">T(m,n) = O(m × n) cells × O(1) work = O(m × n)</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>Flood fill is a connected component traversal. BFS explores cells in "wavefront" order—all cells at distance d from source are processed before distance d+1. The visited check (or immediate color change) ensures each cell enters the queue exactly once.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>DFS and BFS have identical time complexity here. BFS may be preferable for very large connected regions to avoid stack overflow.</p>
+                            </div>
+                        </div>
+                        <div class="complexity-detail space-detail">
+                            <h4 class="detail-title">Space Complexity: <span class="big-o">O(m × n)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>BFS queue: O(m × n) worst case</li>
+                                        <li>DFS recursion stack: O(m × n) worst case</li>
+                                        <li>Visited tracking: O(1) if using color change</li>
+                                        <li>Typical case: O(perimeter) queue size</li>
+                                    </ul>
+                                    <div class="detail-formula">S(m,n) = O(m × n) for queue/stack storage</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>The queue size at any moment equals the "frontier"—cells discovered but not yet processed. For BFS, this is bounded by the largest wavefront, which can approach O(m × n) for certain shapes. In practice, the frontier is often O(min(m, n)).</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>Changing the color in-place serves as the visited marker—no separate visited array needed, but the original image is modified.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -108,6 +108,7 @@
                 <div class="pointer-item slow">&#9660; slow - moves 1 step</div>
                 <div class="pointer-item fast">&#9660; fast - moves 2 steps</div>
             </div>
+
         </div>
 
         <div class="code-panel">
@@ -200,6 +201,82 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> dummy.next
             </div>
         </div>
+        </div>
+
+        <div class="complexity-section">
+            <input type="checkbox" id="complexity-toggle" class="complexity-toggle-input" checked>
+            <label for="complexity-toggle" class="complexity-header">
+                <span class="complexity-title">Complexity Analysis</span>
+                <span class="complexity-icon"></span>
+            </label>
+            <div class="complexity-content">
+                <input type="radio" id="tab-time" name="complexity-tab" class="complexity-tab-input" checked>
+                <input type="radio" id="tab-space" name="complexity-tab" class="complexity-tab-input">
+                <div class="complexity-columns">
+                    <div class="complexity-stats">
+                        <label for="tab-time" class="complexity-item">
+                            <span class="complexity-label">Time Complexity</span>
+                            <span class="complexity-value">O(n log n)</span>
+                        </label>
+                        <label for="tab-space" class="complexity-item">
+                            <span class="complexity-label">Space Complexity</span>
+                            <span class="complexity-value">O(log n)</span>
+                        </label>
+                    </div>
+                    <div class="complexity-explanation">
+                        <div class="complexity-detail time-detail">
+                            <h4 class="detail-title">Time Complexity: <span class="big-o">O(n log n)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Find middle (slow/fast): O(n) per level</li>
+                                        <li>Merge two sorted lists: O(n) per level</li>
+                                        <li>Recursion depth: O(log n) levels</li>
+                                        <li>Total: O(log n) levels × O(n) work = O(n log n)</li>
+                                    </ul>
+                                    <div class="detail-formula">T(n) = 2T(n/2) + O(n) → O(n log n) by Master theorem</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>Merge sort divides the list in half recursively until single nodes remain, then merges sorted halves bottom-up. Each level of recursion processes all n elements exactly once (during merging), and there are log n levels. The slow/fast pointer technique finds the midpoint in O(n) without random access.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>Unlike quicksort (O(n²) worst case), merge sort guarantees O(n log n) for all inputs—making it the preferred choice for linked lists.</p>
+                            </div>
+                        </div>
+                        <div class="complexity-detail space-detail">
+                            <h4 class="detail-title">Space Complexity: <span class="big-o">O(log n)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Recursion stack depth: O(log n)</li>
+                                        <li>Each stack frame: O(1) pointers</li>
+                                        <li>No auxiliary array for merging</li>
+                                        <li>Merging is done by relinking pointers</li>
+                                    </ul>
+                                    <div class="detail-formula">S(n) = O(log n) — recursion stack only</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>Array merge sort requires O(n) auxiliary space for merging. Linked list merge sort achieves O(1) merge space because we can rearrange pointers without copying elements. The only space cost is the recursion stack, which has depth log n due to balanced splitting.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>Bottom-up iterative merge sort eliminates the recursion stack entirely, achieving O(1) auxiliary space for linked lists.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

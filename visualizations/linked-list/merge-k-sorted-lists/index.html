@@ -97,6 +97,7 @@
                     <span>Merged</span>
                 </div>
             </div>
+
         </div>
 
         <div class="code-panel">
@@ -165,6 +166,82 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> dummy.next
             </div>
         </div>
+        </div>
+
+        <div class="complexity-section">
+            <input type="checkbox" id="complexity-toggle" class="complexity-toggle-input" checked>
+            <label for="complexity-toggle" class="complexity-header">
+                <span class="complexity-title">Complexity Analysis</span>
+                <span class="complexity-icon"></span>
+            </label>
+            <div class="complexity-content">
+                <input type="radio" id="tab-time" name="complexity-tab" class="complexity-tab-input" checked>
+                <input type="radio" id="tab-space" name="complexity-tab" class="complexity-tab-input">
+                <div class="complexity-columns">
+                    <div class="complexity-stats">
+                        <label for="tab-time" class="complexity-item">
+                            <span class="complexity-label">Time Complexity</span>
+                            <span class="complexity-value">O(n log k)</span>
+                        </label>
+                        <label for="tab-space" class="complexity-item">
+                            <span class="complexity-label">Space Complexity</span>
+                            <span class="complexity-value">O(log k)</span>
+                        </label>
+                    </div>
+                    <div class="complexity-explanation">
+                        <div class="complexity-detail time-detail">
+                            <h4 class="detail-title">Time Complexity: <span class="big-o">O(n log k)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Merge levels: ⌈log k⌉ (k lists → 1 list)</li>
+                                        <li>Work per level: O(n) total nodes merged</li>
+                                        <li>Each node touched once per level</li>
+                                        <li>Total: O(log k) levels × O(n) = O(n log k)</li>
+                                    </ul>
+                                    <div class="detail-formula">T(n,k) = O(log k) levels × O(n) merge work = O(n log k)</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>Divide-and-conquer pairs up lists and merges: k lists → k/2 lists → k/4 lists → ... → 1 list. With ⌈log k⌉ merge rounds, and n total nodes processed per round, we get O(n log k). The naive approach (merge one at a time) costs O(n × k) because early lists are re-scanned.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>Alternative: min-heap of k list heads yields O(n log k) by extracting minimum in O(log k) for each of n nodes. Same complexity, different constant factors.</p>
+                            </div>
+                        </div>
+                        <div class="complexity-detail space-detail">
+                            <h4 class="detail-title">Space Complexity: <span class="big-o">O(log k)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Recursion stack depth: O(log k)</li>
+                                        <li>Each frame: O(1) pointers</li>
+                                        <li>Merging: O(1) by pointer manipulation</li>
+                                        <li>No auxiliary arrays needed</li>
+                                    </ul>
+                                    <div class="detail-formula">S(k) = O(log k) — recursion stack only</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>The divide-and-conquer splits the list array in half recursively, giving O(log k) depth. Each merge operation uses constant extra space (dummy head, tail pointer). The heap approach uses O(k) space for the heap, which may be better or worse depending on k vs. log k.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>Iterative pairwise merging (bottom-up) eliminates recursion entirely, achieving O(1) auxiliary space with O(k) pointers to track current lists.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

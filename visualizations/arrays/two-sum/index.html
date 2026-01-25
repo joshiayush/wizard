@@ -80,6 +80,7 @@
                     <span>Solution Found</span>
                 </div>
             </div>
+
         </div>
 
         <div class="code-panel">
@@ -106,6 +107,82 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numsMap[nums[i]] = i
             </div>
         </div>
+        </div>
+
+        <div class="complexity-section">
+            <input type="checkbox" id="complexity-toggle" class="complexity-toggle-input" checked>
+            <label for="complexity-toggle" class="complexity-header">
+                <span class="complexity-title">Complexity Analysis</span>
+                <span class="complexity-icon"></span>
+            </label>
+            <div class="complexity-content">
+                <input type="radio" id="tab-time" name="complexity-tab" class="complexity-tab-input" checked>
+                <input type="radio" id="tab-space" name="complexity-tab" class="complexity-tab-input">
+                <div class="complexity-columns">
+                    <div class="complexity-stats">
+                        <label for="tab-time" class="complexity-item">
+                            <span class="complexity-label">Time Complexity</span>
+                            <span class="complexity-value">O(n)</span>
+                        </label>
+                        <label for="tab-space" class="complexity-item">
+                            <span class="complexity-label">Space Complexity</span>
+                            <span class="complexity-value">O(n)</span>
+                        </label>
+                    </div>
+                    <div class="complexity-explanation">
+                        <div class="complexity-detail time-detail">
+                            <h4 class="detail-title">Time Complexity: <span class="big-o">O(n)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Single pass through array of n elements</li>
+                                        <li>Hash table lookup: O(1) amortized per element</li>
+                                        <li>Hash table insertion: O(1) amortized per element</li>
+                                        <li>Total operations: n lookups + n insertions = 2n</li>
+                                    </ul>
+                                    <div class="detail-formula">T(n) = n × (O(1) + O(1)) = O(n)</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>The naive approach compares all pairs <code>(i, j)</code> where <code>i < j</code>, yielding <code>n(n-1)/2 = O(n²)</code> comparisons. The hash table approach exploits the fact that for each element <code>x</code>, its complement <code>target - x</code> is uniquely determined—reducing search from O(n) to O(1).</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>We trade the nested loop's multiplicative cost for a single loop with constant-time hash operations, transforming O(n²) into O(n).</p>
+                            </div>
+                        </div>
+                        <div class="complexity-detail space-detail">
+                            <h4 class="detail-title">Space Complexity: <span class="big-o">O(n)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Hash table stores at most n entries</li>
+                                        <li>Each entry: one key (value) + one value (index)</li>
+                                        <li>No additional data structures required</li>
+                                        <li>Input array is not modified</li>
+                                    </ul>
+                                    <div class="detail-formula">S(n) = O(n) for hash table storage</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>In the worst case, we traverse the entire array before finding the solution (or determine no solution exists). At that point, the hash table contains all n elements. The space-time tradeoff is explicit: we invest O(n) space to reduce O(n) lookups from O(n) each to O(1) each.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>The hash table serves as a "memory" of previously seen elements, enabling instant complement lookups instead of re-scanning the array.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

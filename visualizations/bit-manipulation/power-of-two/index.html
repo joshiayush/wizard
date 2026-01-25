@@ -83,6 +83,7 @@
                     <span>Result</span>
                 </div>
             </div>
+
         </div>
 
         <div class="code-panel">
@@ -112,6 +113,82 @@
                 <span class="code-comment"># 1000 & 0111 = 0000 (zero!)</span>
             </div>
         </div>
+        </div>
+
+        <div class="complexity-section">
+            <input type="checkbox" id="complexity-toggle" class="complexity-toggle-input" checked>
+            <label for="complexity-toggle" class="complexity-header">
+                <span class="complexity-title">Complexity Analysis</span>
+                <span class="complexity-icon"></span>
+            </label>
+            <div class="complexity-content">
+                <input type="radio" id="tab-time" name="complexity-tab" class="complexity-tab-input" checked>
+                <input type="radio" id="tab-space" name="complexity-tab" class="complexity-tab-input">
+                <div class="complexity-columns">
+                    <div class="complexity-stats">
+                        <label for="tab-time" class="complexity-item">
+                            <span class="complexity-label">Time Complexity</span>
+                            <span class="complexity-value">O(1)</span>
+                        </label>
+                        <label for="tab-space" class="complexity-item">
+                            <span class="complexity-label">Space Complexity</span>
+                            <span class="complexity-value">O(1)</span>
+                        </label>
+                    </div>
+                    <div class="complexity-explanation">
+                        <div class="complexity-detail time-detail">
+                            <h4 class="detail-title">Time Complexity: <span class="big-o">O(1)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Subtraction <code>n - 1</code>: single CPU instruction</li>
+                                        <li>Bitwise AND <code>n & (n-1)</code>: single CPU instruction</li>
+                                        <li>Comparison with zero: single CPU instruction</li>
+                                        <li>Total: 3-4 machine instructions</li>
+                                    </ul>
+                                    <div class="detail-formula">T(n) = O(1) — constant time, independent of n</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>Powers of two have exactly one bit set: 2<sup>k</sup> = 1 followed by k zeros. Subtracting 1 flips all bits from the rightmost set bit down: <code>n - 1</code> changes <code>100...0</code> to <code>011...1</code>. The AND of these shares no common bits, yielding zero. For non-powers, at least one higher bit survives.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>The operation <code>n & (n-1)</code> clears the rightmost set bit. This technique is foundational in bit manipulation (e.g., counting set bits, finding lowest set bit).</p>
+                            </div>
+                        </div>
+                        <div class="complexity-detail space-detail">
+                            <h4 class="detail-title">Space Complexity: <span class="big-o">O(1)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Input stored in a single register</li>
+                                        <li>Intermediate <code>n - 1</code>: one register</li>
+                                        <li>Result of AND: one register</li>
+                                        <li>No heap allocation or data structures</li>
+                                    </ul>
+                                    <div class="detail-formula">S(n) = O(1) — fixed number of registers</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>Bit manipulation operates on fixed-width integers (32 or 64 bits). The space used is independent of the numeric value—a 64-bit integer uses 8 bytes whether it holds 1 or 2<sup>63</sup>. No auxiliary data structures are needed.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>Alternative approaches (loop counting bits, division by 2) use O(log n) time. The bit trick achieves O(1) by exploiting binary representation properties.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -99,6 +99,7 @@
                     <span>Extracted</span>
                 </div>
             </div>
+
         </div>
 
         <div class="code-panel">
@@ -140,6 +141,82 @@
                 <span class="code-comment"># Max heap: parent >= children</span>
             </div>
         </div>
+        </div>
+
+        <div class="complexity-section">
+            <input type="checkbox" id="complexity-toggle" class="complexity-toggle-input" checked>
+            <label for="complexity-toggle" class="complexity-header">
+                <span class="complexity-title">Complexity Analysis</span>
+                <span class="complexity-icon"></span>
+            </label>
+            <div class="complexity-content">
+                <input type="radio" id="tab-time" name="complexity-tab" class="complexity-tab-input" checked>
+                <input type="radio" id="tab-space" name="complexity-tab" class="complexity-tab-input">
+                <div class="complexity-columns">
+                    <div class="complexity-stats">
+                        <label for="tab-time" class="complexity-item">
+                            <span class="complexity-label">Time Complexity</span>
+                            <span class="complexity-value">O(n + k log n)</span>
+                        </label>
+                        <label for="tab-space" class="complexity-item">
+                            <span class="complexity-label">Space Complexity</span>
+                            <span class="complexity-value">O(n)</span>
+                        </label>
+                    </div>
+                    <div class="complexity-explanation">
+                        <div class="complexity-detail time-detail">
+                            <h4 class="detail-title">Time Complexity: <span class="big-o">O(n + k log n)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Build max-heap (heapify): O(n) via Floyd's algorithm</li>
+                                        <li>Extract max k times: k × O(log n) sift-down</li>
+                                        <li>Total: O(n) + O(k log n) = O(n + k log n)</li>
+                                        <li>When k = 1: O(n), when k = n: O(n log n)</li>
+                                    </ul>
+                                    <div class="detail-formula">T(n,k) = O(n) + k × O(log n) = O(n + k log n)</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>Floyd's heapify is O(n), not O(n log n), because most nodes are near leaves with small subtrees. The sum <code>Σ h(i)</code> over all nodes (where h(i) is height) equals n - ⌊log n⌋ - 1, not n log n. Each extraction removes the root and restores heap property in O(log n).</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>For k << n, heap selection beats sorting. QuickSelect offers O(n) expected time but O(n²) worst-case without median-of-medians.</p>
+                            </div>
+                        </div>
+                        <div class="complexity-detail space-detail">
+                            <h4 class="detail-title">Space Complexity: <span class="big-o">O(n)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Heap array: stores all n elements</li>
+                                        <li>In-place heapify possible: O(1) extra</li>
+                                        <li>If input must be preserved: O(n) copy</li>
+                                        <li>Sift operations: O(1) temporary variables</li>
+                                    </ul>
+                                    <div class="detail-formula">S(n) = O(n) for heap storage (or O(1) if in-place)</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>A binary heap is stored as a complete binary tree in an array: parent at index i has children at 2i+1 and 2i+2. This implicit structure requires no pointer overhead. If modifying the input is allowed, heapify is in-place with O(1) auxiliary space.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>Alternative: use a min-heap of size k to find kth largest in O(n log k) time and O(k) space—better when k << n.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

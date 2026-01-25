@@ -81,6 +81,7 @@
                     <span>Visited</span>
                 </div>
             </div>
+
         </div>
 
         <div class="code-panel">
@@ -116,6 +117,82 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dfs(i+di, j+dj)
             </div>
         </div>
+        </div>
+
+        <div class="complexity-section">
+            <input type="checkbox" id="complexity-toggle" class="complexity-toggle-input" checked>
+            <label for="complexity-toggle" class="complexity-header">
+                <span class="complexity-title">Complexity Analysis</span>
+                <span class="complexity-icon"></span>
+            </label>
+            <div class="complexity-content">
+                <input type="radio" id="tab-time" name="complexity-tab" class="complexity-tab-input" checked>
+                <input type="radio" id="tab-space" name="complexity-tab" class="complexity-tab-input">
+                <div class="complexity-columns">
+                    <div class="complexity-stats">
+                        <label for="tab-time" class="complexity-item">
+                            <span class="complexity-label">Time Complexity</span>
+                            <span class="complexity-value">O(m × n)</span>
+                        </label>
+                        <label for="tab-space" class="complexity-item">
+                            <span class="complexity-label">Space Complexity</span>
+                            <span class="complexity-value">O(m × n)</span>
+                        </label>
+                    </div>
+                    <div class="complexity-explanation">
+                        <div class="complexity-detail time-detail">
+                            <h4 class="detail-title">Time Complexity: <span class="big-o">O(m × n)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Main loop visits each cell once: O(m × n)</li>
+                                        <li>DFS visits each land cell at most once total</li>
+                                        <li>Each cell has ≤ 4 neighbors checked</li>
+                                        <li>Marking visited: O(1) per cell</li>
+                                    </ul>
+                                    <div class="detail-formula">T(m,n) = O(m × n) + O(4 × m × n) = O(m × n)</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>The grid is an implicit graph with m×n vertices and ≤ 4×m×n edges (4-connectivity). DFS on a graph is O(V + E). Since E = O(V) in a grid, total time is O(m × n). Each cell is processed exactly once: either by the main loop (water) or by DFS (land, then marked).</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>Counting connected components via DFS/BFS is a standard graph traversal pattern—the key is ensuring each vertex is visited exactly once.</p>
+                            </div>
+                        </div>
+                        <div class="complexity-detail space-detail">
+                            <h4 class="detail-title">Space Complexity: <span class="big-o">O(m × n)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Recursion stack: O(m × n) worst case</li>
+                                        <li>Visited markers: O(1) if modifying grid in-place</li>
+                                        <li>Separate visited array: O(m × n) if preserving input</li>
+                                        <li>BFS queue alternative: O(min(m, n))</li>
+                                    </ul>
+                                    <div class="detail-formula">S(m,n) = O(m × n) for recursion stack depth</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>The worst-case recursion depth occurs when the entire grid forms a single snake-like island (e.g., a spiral). In this case, DFS may recurse through all m×n cells before returning. BFS limits queue size to the current frontier, which is O(min(m,n)) for a connected component.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>Iterative DFS with explicit stack or BFS can avoid stack overflow for large grids, trading recursion elegance for robustness.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

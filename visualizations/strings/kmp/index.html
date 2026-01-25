@@ -86,6 +86,7 @@
                     <span>Mismatch</span>
                 </div>
             </div>
+
         </div>
 
         <div class="code-panel">
@@ -121,6 +122,82 @@
                 <span class="code-keyword">return</span> -<span class="code-number">1</span>
             </div>
         </div>
+        </div>
+
+        <div class="complexity-section">
+            <input type="checkbox" id="complexity-toggle" class="complexity-toggle-input" checked>
+            <label for="complexity-toggle" class="complexity-header">
+                <span class="complexity-title">Complexity Analysis</span>
+                <span class="complexity-icon"></span>
+            </label>
+            <div class="complexity-content">
+                <input type="radio" id="tab-time" name="complexity-tab" class="complexity-tab-input" checked>
+                <input type="radio" id="tab-space" name="complexity-tab" class="complexity-tab-input">
+                <div class="complexity-columns">
+                    <div class="complexity-stats">
+                        <label for="tab-time" class="complexity-item">
+                            <span class="complexity-label">Time Complexity</span>
+                            <span class="complexity-value">O(n + m)</span>
+                        </label>
+                        <label for="tab-space" class="complexity-item">
+                            <span class="complexity-label">Space Complexity</span>
+                            <span class="complexity-value">O(m)</span>
+                        </label>
+                    </div>
+                    <div class="complexity-explanation">
+                        <div class="complexity-detail time-detail">
+                            <h4 class="detail-title">Time Complexity: <span class="big-o">O(n + m)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Build failure table (π-table): O(m)</li>
+                                        <li>Pattern matching traversal: O(n)</li>
+                                        <li>Text pointer never backtracks</li>
+                                        <li>Pattern pointer: advances ≤ n, retreats ≤ n</li>
+                                    </ul>
+                                    <div class="detail-formula">T(n, m) = O(m) preprocessing + O(n) matching = O(n + m)</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>Naive search is O(nm) because it restarts from position 1 after each mismatch. KMP observes that a mismatch at pattern[j] means text[i-j..i-1] matches pattern[0..j-1]. The failure function encodes: "if mismatch at j, what's the longest proper prefix of pattern[0..j-1] that's also a suffix?" This allows jumping directly to the next possible match position.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>The text index i never decreases—guaranteeing linear time. The amortized cost of pattern index retreats is bounded by advances.</p>
+                            </div>
+                        </div>
+                        <div class="complexity-detail space-detail">
+                            <h4 class="detail-title">Space Complexity: <span class="big-o">O(m)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Failure table (π): array of m integers</li>
+                                        <li>Two index pointers: O(1)</li>
+                                        <li>No auxiliary data structures</li>
+                                        <li>Independent of text length n</li>
+                                    </ul>
+                                    <div class="detail-formula">S(m) = O(m) for failure table storage</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>The failure function π[j] stores the length of the longest proper prefix of pattern[0..j] that is also a suffix. This is a function solely of the pattern, independent of the text. Once computed, it can be reused for multiple texts without rebuilding.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>KMP is an online algorithm: it processes the text character-by-character and can match patterns in streaming data with constant additional space per character.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
