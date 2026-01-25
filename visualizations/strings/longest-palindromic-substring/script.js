@@ -1,6 +1,7 @@
 /**
  * Longest Palindromic Substring Visualization
- * Find the longest palindrome using brute force
+ * Find the longest palindrome using expand-around-center approach
+ * Time: O(n²), Space: O(1)
  */
 
 class PalindromeVisualizer extends VisualizerBase {
@@ -10,12 +11,17 @@ class PalindromeVisualizer extends VisualizerBase {
         });
 
         this.str = "";
-        this.i = 0;
-        this.j = 0;
+        this.center = 0;
+        this.left = 0;
+        this.right = 0;
+        this.phase = "odd"; // 'odd' or 'even'
+        this.expanding = false;
         this.longest = "";
         this.longestStart = -1;
         this.longestEnd = -1;
         this.foundPalindromes = new Set();
+        this.currentPalindromeStart = -1;
+        this.currentPalindromeEnd = -1;
     }
 
     init() {
@@ -23,12 +29,17 @@ class PalindromeVisualizer extends VisualizerBase {
         this.str = this.parseStringInput("stringInput") || "babad";
 
         // Reset state
-        this.i = 0;
-        this.j = 0;
-        this.longest = "";
-        this.longestStart = -1;
-        this.longestEnd = -1;
+        this.center = 0;
+        this.left = 0;
+        this.right = 0;
+        this.phase = "odd";
+        this.expanding = false;
+        this.longest = this.str.length > 0 ? this.str[0] : "";
+        this.longestStart = 0;
+        this.longestEnd = 0;
         this.foundPalindromes = new Set();
+        this.currentPalindromeStart = -1;
+        this.currentPalindromeEnd = -1;
         this.isFinished = false;
 
         if (this.isPlaying) {
@@ -41,8 +52,8 @@ class PalindromeVisualizer extends VisualizerBase {
         this.renderPalindromeList();
         this.updateInfoPanel();
         this.clearCodeHighlight();
-        this.highlightCode(0);
-        this.updateStatus('Click "Step" or "Play" to start the visualization');
+        this.highlightCode(3);
+        this.updateStatus('Click "Step" or "Play" to start. Center 0, trying odd-length expansion.');
     }
 
     generateRandom() {
@@ -70,10 +81,6 @@ class PalindromeVisualizer extends VisualizerBase {
         this.init();
     }
 
-    isPalindrome(s) {
-        return s === s.split("").reverse().join("");
-    }
-
     renderString() {
         const container = document.getElementById("stringDisplay");
         container.innerHTML = "";
@@ -85,14 +92,27 @@ class PalindromeVisualizer extends VisualizerBase {
             box.textContent = this.str[idx];
 
             // Highlight states
-            if (
-                this.isFinished &&
-                idx >= this.longestStart &&
-                idx <= this.longestEnd
-            ) {
+            if (this.isFinished && idx >= this.longestStart && idx <= this.longestEnd) {
                 box.classList.add("longest");
-            } else if (!this.isFinished && idx >= this.i && idx <= this.j) {
-                box.classList.add("in-range");
+            } else if (!this.isFinished) {
+                // Show center
+                if (this.phase === "odd" && idx === this.center) {
+                    box.classList.add("center");
+                } else if (this.phase === "even" && (idx === this.center || idx === this.center + 1)) {
+                    box.classList.add("center");
+                }
+
+                // Show expansion range (current palindrome being expanded)
+                if (this.expanding && idx >= this.left && idx <= this.right) {
+                    box.classList.add("in-range");
+                }
+
+                // Show current palindrome found in this expansion
+                if (this.currentPalindromeStart !== -1 &&
+                    idx >= this.currentPalindromeStart &&
+                    idx <= this.currentPalindromeEnd) {
+                    box.classList.add("palindrome");
+                }
             }
 
             container.appendChild(box);
@@ -109,11 +129,11 @@ class PalindromeVisualizer extends VisualizerBase {
         if (sub && sub !== "-") {
             if (isPalin) {
                 subBox.classList.add("is-palindrome");
-                checkText.textContent = `"${sub}" reversed is "${sub.split("").reverse().join("")}" ✓ Palindrome!`;
+                checkText.textContent = `"${sub}" is a palindrome!`;
                 checkText.className = "palindrome-check yes";
             } else {
                 subBox.classList.add("not-palindrome");
-                checkText.textContent = `"${sub}" reversed is "${sub.split("").reverse().join("")}" ✗ Not a palindrome`;
+                checkText.textContent = `s[${this.left}]='${this.str[this.left]}' ≠ s[${this.right}]='${this.str[this.right]}' - stop expanding`;
                 checkText.className = "palindrome-check no";
             }
         } else {
@@ -137,7 +157,7 @@ class PalindromeVisualizer extends VisualizerBase {
             (a, b) => b.length - a.length
         );
 
-        sorted.forEach((p, idx) => {
+        sorted.forEach((p) => {
             const item = document.createElement("span");
             item.className = "palindrome-item";
             if (p === this.longest) {
@@ -149,8 +169,8 @@ class PalindromeVisualizer extends VisualizerBase {
     }
 
     updateInfoPanel() {
-        this.updateInfoBox("iValue", this.i);
-        this.updateInfoBox("jValue", this.j);
+        this.updateInfoBox("centerValue", this.center);
+        this.updateInfoBox("expandValue", `${this.left} / ${this.right}`);
         this.updateInfoBox("longestValue", this.longest || "-");
         this.updateInfoBox("lengthValue", this.longest.length);
     }
@@ -160,8 +180,8 @@ class PalindromeVisualizer extends VisualizerBase {
             return;
         }
 
-        // Check if we've gone through all substrings
-        if (this.i >= this.str.length) {
+        // Check if we've processed all centers
+        if (this.center >= this.str.length) {
             this.finish();
             this.highlightCode(6);
             this.renderString();
@@ -173,65 +193,122 @@ class PalindromeVisualizer extends VisualizerBase {
             return;
         }
 
-        // Get current substring
-        this.highlightCode(2);
-        const sub = this.str.slice(this.i, this.j + 1);
+        // Starting a new center?
+        if (!this.expanding) {
+            this.startExpansion();
+            return;
+        }
+
+        // Currently expanding - try to expand further
+        this.continueExpansion();
+    }
+
+    startExpansion() {
+        this.expanding = true;
+        this.currentPalindromeStart = -1;
+        this.currentPalindromeEnd = -1;
+
+        if (this.phase === "odd") {
+            // Odd-length: start with center character
+            this.left = this.center;
+            this.right = this.center;
+            this.highlightCode(4);
+            this.updateStatus(`Center ${this.center}: Trying odd-length expansion (single char "${this.str[this.center]}")`);
+        } else {
+            // Even-length: start between center and center+1
+            this.left = this.center;
+            this.right = this.center + 1;
+            this.highlightCode(5);
+
+            if (this.right >= this.str.length) {
+                // No room for even expansion, move to next center
+                this.expanding = false;
+                this.moveToNextCenter();
+                return;
+            }
+
+            this.updateStatus(`Center ${this.center}: Trying even-length expansion between indices ${this.left} and ${this.right}`);
+        }
 
         this.renderString();
         this.updateInfoPanel();
-
-        setTimeout(() => {
-            // Check if palindrome
-            this.highlightCode(3);
-            const isPalin = this.isPalindrome(sub);
-            this.renderSubstring(sub, isPalin);
-
-            setTimeout(() => {
-                if (isPalin) {
-                    // Add to found palindromes if length > 1
-                    if (sub.length > 1) {
-                        this.foundPalindromes.add(sub);
-                        this.renderPalindromeList();
-                    }
-
-                    this.highlightCode(4);
-
-                    if (sub.length > this.longest.length) {
-                        setTimeout(() => {
-                            this.highlightCode(5);
-                            this.longest = sub;
-                            this.longestStart = this.i;
-                            this.longestEnd = this.j;
-                            this.updateInfoPanel();
-                            this.renderPalindromeList();
-                            this.updateStatus(
-                                `New longest palindrome found: "${sub}" (length ${sub.length})`
-                            );
-                            this.moveToNext();
-                        }, this.getSpeed() / 4);
-                    } else {
-                        this.updateStatus(
-                            `"${sub}" is a palindrome but not longer than "${this.longest}"`
-                        );
-                        this.moveToNext();
-                    }
-                } else {
-                    this.updateStatus(`"${sub}" is not a palindrome`);
-                    this.moveToNext();
-                }
-            }, this.getSpeed() / 3);
-        }, this.getSpeed() / 4);
     }
 
-    moveToNext() {
-        // Move to next substring
-        this.j++;
-        if (this.j >= this.str.length) {
-            this.i++;
-            this.j = this.i;
-            this.highlightCode(0);
-        } else {
+    continueExpansion() {
+        // Check if current left/right match
+        const canExpand = this.left >= 0 &&
+                          this.right < this.str.length &&
+                          this.str[this.left] === this.str[this.right];
+
+        if (canExpand) {
+            // Characters match! This is part of a palindrome
             this.highlightCode(1);
+            this.currentPalindromeStart = this.left;
+            this.currentPalindromeEnd = this.right;
+
+            const currentPalindrome = this.str.slice(this.left, this.right + 1);
+            this.renderSubstring(currentPalindrome, true);
+
+            // Add to found palindromes if length > 1
+            if (currentPalindrome.length > 1) {
+                this.foundPalindromes.add(currentPalindrome);
+                this.renderPalindromeList();
+            }
+
+            // Check if this is the new longest
+            if (currentPalindrome.length > this.longest.length) {
+                this.longest = currentPalindrome;
+                this.longestStart = this.left;
+                this.longestEnd = this.right;
+                this.highlightCode(6);
+                this.updateStatus(`New longest palindrome: "${currentPalindrome}" (length ${currentPalindrome.length})`);
+            } else {
+                this.updateStatus(`Found palindrome "${currentPalindrome}" - expanding further...`);
+            }
+
+            // Expand outward for next step
+            this.highlightCode(2);
+            this.left--;
+            this.right++;
+
+            this.renderString();
+            this.updateInfoPanel();
+        } else {
+            // Can't expand further - mismatch or boundary
+            if (this.left >= 0 && this.right < this.str.length) {
+                // Mismatch
+                this.renderSubstring(null, false);
+                this.updateStatus(`Mismatch: s[${this.left}]='${this.str[this.left]}' ≠ s[${this.right}]='${this.str[this.right]}' - stopping expansion`);
+            } else {
+                // Boundary reached
+                this.updateStatus(`Reached boundary - stopping expansion`);
+            }
+
+            // Done with this expansion, move to next phase or center
+            this.expanding = false;
+            this.currentPalindromeStart = -1;
+            this.currentPalindromeEnd = -1;
+
+            if (this.phase === "odd") {
+                // Switch to even-length expansion
+                this.phase = "even";
+            } else {
+                // Move to next center
+                this.moveToNextCenter();
+            }
+
+            this.renderString();
+            this.updateInfoPanel();
+        }
+    }
+
+    moveToNextCenter() {
+        this.center++;
+        this.phase = "odd";
+        this.highlightCode(3);
+
+        if (this.center < this.str.length) {
+            this.updateStatus(`Moving to center ${this.center}`);
         }
     }
 }

@@ -1,17 +1,28 @@
 /* Longest Palindromic Substring - Algorithm-specific styles */
 
 /* Character box states */
+
+/* Center being examined (orange/gold) */
+.char-box.center {
+    border-color: #ffaa00;
+    background: #2a2a1a;
+    box-shadow: 0 0 12px rgba(255, 170, 0, 0.4);
+}
+
+/* Currently expanding outward (cyan) */
 .char-box.in-range {
     border-color: #00d9ff;
     background: #1a2a3a;
 }
 
+/* Valid palindrome found (green) */
 .char-box.palindrome {
     border-color: #00ff88;
     background: #1a3a2a;
     animation: pulse 0.5s ease;
 }
 
+/* Longest palindrome so far (pink) */
 .char-box.longest {
     border-color: #ff79c6;
     background: #3a1a3a;
@@ -101,6 +112,11 @@
 }
 
 /* Legend colors */
+.legend-color.center {
+    border-color: #ffaa00;
+    background: #2a2a1a;
+}
+
 .legend-color.in-range {
     border-color: #00d9ff;
     background: #1a2a3a;
