@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKLM4BWJFH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CKLM4BWJFH');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Anagrams</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Group Anagrams</h1>
+        <p class="description">Group words by character frequency using a hashmap</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label for="wordsInput">Words:</label>
+                <input type="text" id="wordsInput" value="eat, tea, tan, ate, nat, bat" placeholder="e.g., eat, tea, tan">
+            </div>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label for="speedSlider">Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="800">
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="visualization">
+                <!-- Word List -->
+                <div class="section-title">Words</div>
+                <div class="word-list" id="wordListDisplay"></div>
+
+                <!-- Current Word Processing -->
+                <div class="processing-section">
+                    <div class="section-title">Current Word</div>
+                    <div class="current-word-display" id="currentWordDisplay">-</div>
+                </div>
+
+                <!-- Frequency Array -->
+                <div class="freq-section">
+                    <div class="section-title">Frequency Array (a-z)</div>
+                    <div class="freq-grid" id="freqDisplay"></div>
+                    <div class="freq-labels" id="freqLabels"></div>
+                </div>
+
+                <!-- Hash Key -->
+                <div class="hashkey-section">
+                    <div class="section-title">Hash Key (tuple)</div>
+                    <div class="hashkey-display" id="hashKeyDisplay">-</div>
+                </div>
+
+                <!-- HashMap -->
+                <div class="hashmap-container">
+                    <div class="section-title">HashMap (frequency &rarr; words)</div>
+                    <div class="hashmap" id="hashmapDisplay">
+                        <span class="empty-text">Empty</span>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="info-panel">
+                    <div class="info-box">
+                        <h3>Word Index</h3>
+                        <div class="info-value" id="wordIndexValue">-</div>
+                    </div>
+                    <div class="info-box">
+                        <h3>Current Word</h3>
+                        <div class="info-value" id="currentWordValue">-</div>
+                    </div>
+                    <div class="info-box">
+                        <h3>Char Scanning</h3>
+                        <div class="info-value" id="charScanValue">-</div>
+                    </div>
+                    <div class="info-box">
+                        <h3>Groups Found</h3>
+                        <div class="info-value" id="groupCountValue">0</div>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="status" id="status">
+                    Click "Step" or "Play" to start the visualization
+                </div>
+
+                <!-- Legend -->
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color current"></div>
+                        <span>Current Word</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color highlight"></div>
+                        <span>Processed</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color found"></div>
+                        <span>Grouped</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Panel -->
+            <div class="code-panel">
+                <h3>Python Code</h3>
+                <div class="code-line" id="code-0">
+                    <span class="code-variable">group</span> = <span class="code-function">defaultdict</span>(<span class="code-function">list</span>)
+                </div>
+                <div class="code-line" id="code-1">
+                    <span class="code-keyword">for</span> <span class="code-variable">word</span> <span class="code-keyword">in</span> strs:
+                </div>
+                <div class="code-line" id="code-2">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">hash</span> = [<span class="code-number">0</span>] * <span class="code-number">26</span>
+                </div>
+                <div class="code-line" id="code-3">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> <span class="code-variable">ch</span> <span class="code-keyword">in</span> word:
+                </div>
+                <div class="code-line" id="code-4">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hash[<span class="code-function">ord</span>(ch) - <span class="code-function">ord</span>(<span class="code-string">"a"</span>)] += <span class="code-number">1</span>
+                </div>
+                <div class="code-line" id="code-5">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">group</span>[<span class="code-function">tuple</span>(hash)].append(word)
+                </div>
+                <div class="code-line" id="code-6">
+                    <span class="code-keyword">return</span> <span class="code-function">list</span>(group.values())
+                </div>
+            </div>
+        </div>
+
+        <div class="complexity-section">
+            <input type="checkbox" id="complexity-toggle" class="complexity-toggle-input" checked>
+            <label for="complexity-toggle" class="complexity-header">
+                <span class="complexity-title">Complexity Analysis</span>
+                <span class="complexity-icon"></span>
+            </label>
+            <div class="complexity-content">
+                <input type="radio" id="tab-time" name="complexity-tab" class="complexity-tab-input" checked>
+                <input type="radio" id="tab-space" name="complexity-tab" class="complexity-tab-input">
+                <div class="complexity-columns">
+                    <div class="complexity-stats">
+                        <label for="tab-time" class="complexity-item">
+                            <span class="complexity-label">Time Complexity</span>
+                            <span class="complexity-value">O(n &middot; k)</span>
+                        </label>
+                        <label for="tab-space" class="complexity-item">
+                            <span class="complexity-label">Space Complexity</span>
+                            <span class="complexity-value">O(n &middot; k)</span>
+                        </label>
+                    </div>
+                    <div class="complexity-explanation">
+                        <div class="complexity-detail time-detail">
+                            <h4 class="detail-title">Time Complexity: <span class="big-o">O(n &middot; k)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Iterate through n words in the input list</li>
+                                        <li>For each word, scan k characters to build frequency array: O(k)</li>
+                                        <li>Tuple creation from 26-element array: O(26) = O(1)</li>
+                                        <li>HashMap lookup and insertion: O(1) amortized</li>
+                                    </ul>
+                                    <div class="detail-formula">T(n, k) = n &times; (k + 26 + 1) = O(n &middot; k)</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>The sorting-based approach sorts each word's characters in O(k log k), yielding O(n &middot; k log k) total. By counting character frequencies instead of sorting, we reduce per-word cost from O(k log k) to O(k), exploiting the fixed 26-letter alphabet as a constant-size domain.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>The 26-element frequency array acts as a perfect hash for anagram equivalence &mdash; two words are anagrams if and only if they have identical character frequency distributions.</p>
+                            </div>
+                        </div>
+                        <div class="complexity-detail space-detail">
+                            <h4 class="detail-title">Space Complexity: <span class="big-o">O(n &middot; k)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>HashMap keys: at most n tuples, each fixed size 26 = O(n)</li>
+                                        <li>HashMap values: all n words stored, total chars = O(n &middot; k)</li>
+                                        <li>Frequency array: O(26) = O(1), reused per word</li>
+                                        <li>Output: all words grouped = O(n &middot; k)</li>
+                                    </ul>
+                                    <div class="detail-formula">S(n, k) = O(n &middot; k) for storing all words in groups</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>Every input word must appear in exactly one output group. Since we store all n words in the hashmap, and the total character count across all words is n &middot; k, the space is necessarily O(n &middot; k). The 26-element frequency array adds only O(1) overhead per iteration.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>The space is dominated by the output itself &mdash; any algorithm that groups n words of average length k must use at least O(n &middot; k) space to store the result.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
