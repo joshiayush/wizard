@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKLM4BWJFH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CKLM4BWJFH');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trapping Rain Water</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Trapping Rain Water</h1>
+        <p class="description">Compute trapped water using left max and right max arrays in three passes</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label for="arrayInput">Heights:</label>
+                <input type="text" id="arrayInput" value="0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1" placeholder="e.g., 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1">
+            </div>
+            <button class="btn-random" id="randomBtn">Random</button>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label for="speedSlider">Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="800">
+            </div>
+        </div>
+
+        <div class="main-content">
+        <div class="visualization">
+            <!-- Pass indicator -->
+            <div class="pass-indicator" id="passIndicator">
+                <span class="pass-label" id="passLabel">Ready</span>
+                <span class="pass-direction" id="passDirection"></span>
+            </div>
+
+            <!-- Bar chart -->
+            <div class="section-title">Elevation Map</div>
+            <div class="bar-chart-wrapper">
+                <div class="bar-chart" id="barChart"></div>
+            </div>
+
+            <!-- Auxiliary arrays -->
+            <div class="aux-arrays">
+                <div class="aux-array-section">
+                    <div class="aux-title"><span class="dot lmax"></span> Left Max (lmax)</div>
+                    <div class="aux-array-container" id="lmaxDisplay"></div>
+                </div>
+                <div class="aux-array-section">
+                    <div class="aux-title"><span class="dot rmax"></span> Right Max (rmax)</div>
+                    <div class="aux-array-container" id="rmaxDisplay"></div>
+                </div>
+            </div>
+
+            <!-- Formula display -->
+            <div class="formula-display">
+                <span class="formula-label">Operation:</span>
+                <span class="formula-content" id="formulaContent">-</span>
+            </div>
+
+            <!-- Info panel -->
+            <div class="info-panel">
+                <div class="info-box">
+                    <h3>Current Phase</h3>
+                    <div class="info-value" id="currentPhase">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Current Index (i)</h3>
+                    <div class="info-value" id="currentIndex">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Left Max</h3>
+                    <div class="info-value" id="leftMaxValue">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Right Max</h3>
+                    <div class="info-value" id="rightMaxValue">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Total Water</h3>
+                    <div class="info-value" id="totalWater">0</div>
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="status" id="status">
+                Click "Step" or "Play" to start the visualization
+            </div>
+
+            <!-- Legend -->
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color wall-color"></div>
+                    <span>Elevation</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color current"></div>
+                    <span>Current Index</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color lmax-color"></div>
+                    <span>Left Max</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color rmax-color"></div>
+                    <span>Right Max</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color water-color"></div>
+                    <span>Trapped Water</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color success"></div>
+                    <span>Final Result</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Panel -->
+        <div class="code-panel">
+            <h3>Python Code</h3>
+            <div class="code-line" id="code-0">
+                <span class="code-variable">n</span> = <span class="code-function">len</span>(height)
+            </div>
+            <div class="code-line" id="code-1">
+                <span class="code-variable">lmax</span> = [<span class="code-number">0</span>] * n
+            </div>
+            <div class="code-line" id="code-2">
+                <span class="code-variable">rmax</span> = [<span class="code-number">0</span>] * n
+            </div>
+            <div class="code-line" id="code-3">
+                <span class="code-variable">lmax</span>[<span class="code-number">0</span>] = height[<span class="code-number">0</span>]
+            </div>
+            <div class="code-line" id="code-4">
+                <span class="code-variable">rmax</span>[n-<span class="code-number">1</span>] = height[n-<span class="code-number">1</span>]
+            </div>
+            <div class="code-line" id="code-5">
+                <span class="code-keyword">for</span> <span class="code-variable">i</span> <span class="code-keyword">in</span> <span class="code-function">range</span>(<span class="code-number">1</span>, n):
+            </div>
+            <div class="code-line" id="code-6">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">lmax</span>[i] = <span class="code-function">max</span>(lmax[i-<span class="code-number">1</span>], height[i])
+            </div>
+            <div class="code-line" id="code-7">
+                <span class="code-keyword">for</span> <span class="code-variable">i</span> <span class="code-keyword">in</span> <span class="code-function">range</span>(n-<span class="code-number">2</span>, -<span class="code-number">1</span>, -<span class="code-number">1</span>):
+            </div>
+            <div class="code-line" id="code-8">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">rmax</span>[i] = <span class="code-function">max</span>(rmax[i+<span class="code-number">1</span>], height[i])
+            </div>
+            <div class="code-line" id="code-9">
+                <span class="code-variable">out</span> = <span class="code-number">0</span>
+            </div>
+            <div class="code-line" id="code-10">
+                <span class="code-keyword">for</span> <span class="code-variable">i</span> <span class="code-keyword">in</span> <span class="code-function">range</span>(n):
+            </div>
+            <div class="code-line" id="code-11">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">out</span> += <span class="code-function">min</span>(lmax[i], rmax[i]) - height[i]
+            </div>
+            <div class="code-line" id="code-12">
+                <span class="code-keyword">return</span> out
+            </div>
+        </div>
+        </div>
+
+        <!-- Complexity Section -->
+        <div class="complexity-section">
+            <input type="checkbox" id="complexity-toggle" class="complexity-toggle-input" checked>
+            <label for="complexity-toggle" class="complexity-header">
+                <span class="complexity-title">Complexity Analysis</span>
+                <span class="complexity-icon"></span>
+            </label>
+            <div class="complexity-content">
+                <input type="radio" id="tab-time" name="complexity-tab" class="complexity-tab-input" checked>
+                <input type="radio" id="tab-space" name="complexity-tab" class="complexity-tab-input">
+                <div class="complexity-columns">
+                    <div class="complexity-stats">
+                        <label for="tab-time" class="complexity-item">
+                            <span class="complexity-label">Time Complexity</span>
+                            <span class="complexity-value">O(n)</span>
+                        </label>
+                        <label for="tab-space" class="complexity-item">
+                            <span class="complexity-label">Space Complexity</span>
+                            <span class="complexity-value">O(n)</span>
+                        </label>
+                    </div>
+                    <div class="complexity-explanation">
+                        <div class="complexity-detail time-detail">
+                            <h4 class="detail-title">Time Complexity: <span class="big-o">O(n)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Pass 1 (left max): iterate indices 1 to n-1, one comparison per index</li>
+                                        <li>Pass 2 (right max): iterate indices n-2 down to 0, one comparison per index</li>
+                                        <li>Pass 3 (water calculation): iterate all n indices, one min and one subtraction per index</li>
+                                        <li>Total operations: (n-1) + (n-1) + n = 3n - 2</li>
+                                    </ul>
+                                    <div class="detail-formula">T(n) = 3n - 2 = O(n)</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>For each position <code>i</code>, water trapped equals <code>min(leftMax, rightMax) - height[i]</code>. Computing left max and right max from scratch per index costs O(n) each, totaling O(n&sup2;). Precomputing them in separate passes reduces this to O(n) with three independent linear scans.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>Water level at any position is bounded by the shorter of the tallest walls on either side. Precomputing these boundaries avoids redundant scans.</p>
+                            </div>
+                        </div>
+                        <div class="complexity-detail space-detail">
+                            <h4 class="detail-title">Space Complexity: <span class="big-o">O(n)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li><code>lmax</code>: array of n elements storing left maximums</li>
+                                        <li><code>rmax</code>: array of n elements storing right maximums</li>
+                                        <li><code>out</code>: single integer accumulator</li>
+                                        <li>Loop variable <code>i</code>: single integer</li>
+                                    </ul>
+                                    <div class="detail-formula">S(n) = 2n + O(1) = O(n)</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>Two auxiliary arrays of size n store the running maximums from each direction. A two-pointer approach can reduce space to O(1) by computing left and right max on the fly, but the array approach is clearer for visualization and understanding.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>The space trade-off is between O(n) with precomputed arrays (simpler logic) and O(1) with two pointers (more complex but space-efficient). Both achieve O(n) time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+/* Trapping Rain Water - Algorithm-specific styles */
+
+/* Pass indicator banner */
+.pass-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    background: #2a2a4a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.pass-indicator.lmax {
+    border-color: #00d9ff;
+    background: #1a2a3a;
+}
+
+.pass-indicator.rmax {
+    border-color: #ff79c6;
+    background: #3a1a2a;
+}
+
+.pass-indicator.water-pass {
+    border-color: #3498db;
+    background: #1a2a3a;
+}
+
+.pass-label {
+    color: #fff;
+}
+
+.pass-direction {
+    font-size: 20px;
+}
+
+.pass-indicator.lmax .pass-label,
+.pass-indicator.lmax .pass-direction { color: #00d9ff; }
+.pass-indicator.rmax .pass-label,
+.pass-indicator.rmax .pass-direction { color: #ff79c6; }
+.pass-indicator.water-pass .pass-label,
+.pass-indicator.water-pass .pass-direction { color: #3498db; }
+
+/* Bar chart */
+.bar-chart-wrapper {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 15px 0;
+    padding: 10px;
+    background: #1a1a2e;
+    border-radius: 8px;
+    min-height: 100px;
+    overflow-x: auto;
+}
+
+.bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.bar-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bar-cells {
+    display: flex;
+    flex-direction: column;
+}
+
+.bar-cell {
+    width: 35px;
+    height: 35px;
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.bar-cell.wall {
+    background: #3a3a5a;
+    border-color: #555;
+}
+
+.bar-cell.wall.current-column {
+    border-color: #ffaa00;
+    background: #3a3a2a;
+    box-shadow: 0 0 6px rgba(255, 170, 0, 0.3);
+}
+
+.bar-cell.wall.lmax-highlight {
+    border-color: #00d9ff;
+    background: #1a2a3a;
+}
+
+.bar-cell.wall.rmax-highlight {
+    border-color: #ff79c6;
+    background: #3a1a2a;
+}
+
+.bar-cell.water {
+    background: rgba(52, 152, 219, 0.6);
+    border-color: rgba(52, 152, 219, 0.4);
+}
+
+.bar-cell.water.filling {
+    transform-origin: bottom;
+    animation: waterFill 0.4s ease-out forwards;
+}
+
+.bar-cell.water.settled {
+    animation: waterSettle 2s ease-in-out infinite;
+}
+
+.bar-cell.empty {
+    background: transparent;
+    border-color: transparent;
+}
+
+.bar-index {
+    font-size: 10px;
+    color: #666;
+    margin-top: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+.bar-index.current {
+    color: #ffaa00;
+    font-weight: bold;
+}
+
+.bar-height-label {
+    font-size: 9px;
+    color: #888;
+    margin-top: 2px;
+    font-family: 'Courier New', monospace;
+}
+
+/* Water filling animation */
+@keyframes waterFill {
+    from {
+        transform: scaleY(0);
+        opacity: 0;
+    }
+    to {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+/* Settled water shimmer */
+@keyframes waterSettle {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 0.65; }
+}
+
+/* Auxiliary arrays section */
+.aux-arrays {
+    display: flex;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+.aux-array-section {
+    flex: 1;
+}
+
+.aux-title {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.aux-title .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.aux-title .dot.lmax { background: #00d9ff; }
+.aux-title .dot.rmax { background: #ff79c6; }
+
+.aux-array-container {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.aux-box {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2a2a4a;
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    color: #888;
+    transition: all 0.3s ease;
+}
+
+.aux-box.computed.lmax-box {
+    border-color: #00d9ff;
+    color: #00d9ff;
+    background: #1a2a3a;
+}
+
+.aux-box.computed.rmax-box {
+    border-color: #ff79c6;
+    color: #ff79c6;
+    background: #3a1a2a;
+}
+
+.aux-box.current {
+    border-color: #ffaa00;
+    color: #ffaa00;
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.4);
+}
+
+/* Formula display */
+.formula-display {
+    text-align: center;
+    padding: 15px;
+    background: #2a2a4a;
+    border-radius: 8px;
+    margin: 15px 0;
+    font-size: 16px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.formula-label {
+    color: #888;
+}
+
+.formula-content {
+    font-family: 'Courier New', monospace;
+    color: #fff;
+}
+
+.formula-content .formula-value {
+    color: #bd93f9;
+}
+
+.formula-content .formula-result {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+.formula-content .formula-operator {
+    color: #ff79c6;
+}
+
+.formula-content .formula-water {
+    color: #3498db;
+    font-weight: bold;
+}
+
+/* Info panel layout */
+.info-panel {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+/* Legend colors */
+.legend-color.wall-color {
+    background: #3a3a5a;
+    border-color: #555;
+}
+
+.legend-color.lmax-color {
+    background: #1a2a3a;
+    border-color: #00d9ff;
+}
+
+.legend-color.rmax-color {
+    background: #3a1a2a;
+    border-color: #ff79c6;
+}
+
+.legend-color.water-color {
+    background: rgba(52, 152, 219, 0.6);
+    border-color: #3498db;
+}
+
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bar-cell {
+        width: 28px;
+        height: 28px;
+    }
+
+    .aux-box {
+        width: 28px;
+        height: 28px;
+        font-size: 11px;
+    }
+
+    .aux-arrays {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .formula-display {
+        font-size: 13px;
+        padding: 10px;
+    }
+}

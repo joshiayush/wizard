@@ -1,0 +1,122 @@
+/* Product of Array Except Self - Algorithm-specific styles */
+
+/* Pass indicator banner */
+.pass-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    background: #2a2a4a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.pass-indicator.prefix {
+    border-color: #00d9ff;
+    background: #1a2a3a;
+}
+
+.pass-indicator.suffix {
+    border-color: #ff79c6;
+    background: #3a1a2a;
+}
+
+.pass-label {
+    color: #fff;
+}
+
+.pass-direction {
+    font-size: 20px;
+}
+
+.pass-indicator.prefix .pass-label { color: #00d9ff; }
+.pass-indicator.prefix .pass-direction { color: #00d9ff; }
+.pass-indicator.suffix .pass-label { color: #ff79c6; }
+.pass-indicator.suffix .pass-direction { color: #ff79c6; }
+
+/* Contributing source element in nums array */
+.array-box.prefix-source {
+    border-color: #00d9ff;
+    background: #1a2a3a;
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+}
+
+/* Computed output value */
+.array-box.computed {
+    border-color: #bd93f9;
+    background: #2a1a3a;
+}
+
+/* Legend colors */
+.legend-color.prefix-source {
+    border-color: #00d9ff;
+    background: #1a2a3a;
+}
+
+.legend-color.computed {
+    border-color: #bd93f9;
+    background: #2a1a3a;
+}
+
+.legend-color.success {
+    border-color: #00ff88;
+    background: #1a3a2a;
+}
+
+/* Formula display */
+.formula-display {
+    text-align: center;
+    padding: 15px;
+    background: #2a2a4a;
+    border-radius: 8px;
+    margin: 20px 0;
+    font-size: 18px;
+    min-height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.formula-label {
+    color: #888;
+}
+
+.formula-content {
+    font-family: 'Courier New', monospace;
+    color: #fff;
+}
+
+.formula-content .formula-value {
+    color: #bd93f9;
+}
+
+.formula-content .formula-result {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+.formula-content .formula-operator {
+    color: #ff79c6;
+}
+
+/* Info panel layout */
+.info-panel {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .formula-display {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
