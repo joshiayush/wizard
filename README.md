@@ -91,6 +91,8 @@ Wizard is an interactive algorithm visualization platform designed to help you u
 | [Best Time to Buy/Sell](https://joshiayush.github.io/wizard/arrays/best-time-to-buy-and-sell-stock/) | Single Pass | O(n) | O(1) | Maximize profit from stock transactions |
 | [Hybrid Quick Sort](https://joshiayush.github.io/wizard/arrays/hybrid-quick-sort/) | 3-Way Partition | O(n log n) | O(log n) | QuickSort with duplicate handling |
 | [Kth Largest Element](https://joshiayush.github.io/wizard/arrays/kth-largest-element/) | Max Heap | O(n + k log n) | O(n) | Find kth largest without full sort |
+| [Product Except Self](https://joshiayush.github.io/wizard/arrays/product-except-self/) | Prefix/Suffix | O(n) | O(n) | Product of all elements except self |
+| [Trapping Rain Water](https://joshiayush.github.io/wizard/arrays/trapping-rain-water/) | Two Pointer | O(n) | O(1) | Calculate water trapped between bars |
 
 ### Strings
 
@@ -98,6 +100,9 @@ Wizard is an interactive algorithm visualization platform designed to help you u
 |:----------|:----------|:----:|:-----:|:------------|
 | [KMP Pattern Matching](https://joshiayush.github.io/wizard/strings/kmp/) | Failure Function | O(n + m) | O(m) | Efficient substring search |
 | [Longest Palindrome](https://joshiayush.github.io/wizard/strings/longest-palindromic-substring/) | Expand Around Center | O(n²) | O(1) | Find longest palindromic substring |
+| [Group Anagrams](https://joshiayush.github.io/wizard/strings/group-anagrams/) | HashMap/Frequency | O(n·k) | O(n·k) | Group words that are anagrams |
+| [BPE Tokenizer](https://joshiayush.github.io/wizard/strings/basic-tokenizer/) | Byte Pair Encoding | O(m·n) | O(V) | Iteratively merge frequent byte pairs into tokens |
+| [Integer to Words](https://joshiayush.github.io/wizard/strings/integer-to-english-words/) | Recursion | O(1) | O(1) | Convert integer to English word representation |
 
 ### Matrix
 
@@ -106,6 +111,7 @@ Wizard is an interactive algorithm visualization platform designed to help you u
 | [Number of Islands](https://joshiayush.github.io/wizard/matrix/number-of-islands/) | DFS/BFS | O(m×n) | O(m×n) | Count connected land components |
 | [Flood Fill](https://joshiayush.github.io/wizard/matrix/flood-fill/) | BFS | O(m×n) | O(m×n) | Paint connected region with new color |
 | [Shortest Path](https://joshiayush.github.io/wizard/matrix/binary-matrix-shortest-path/) | BFS 8-Direction | O(m×n) | O(m×n) | Find shortest path in binary matrix |
+| [Word Search](https://joshiayush.github.io/wizard/matrix/word-search/) | DFS/Backtracking | O(m·n·4^L) | O(L) | Find if word exists in 2D grid |
 
 ### Linked Lists
 
