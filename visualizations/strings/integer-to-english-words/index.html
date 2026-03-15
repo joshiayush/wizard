@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKLM4BWJFH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CKLM4BWJFH');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integer to English Words</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Integer to English Words</h1>
+        <p class="description">Convert a non-negative integer to its English words representation by processing groups of three digits</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>Number:</label>
+                <input type="text" id="numInput" value="1234567" placeholder="Enter a number" style="width: 160px;">
+            </div>
+            <button class="btn-random" id="randomBtn">Random</button>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label>Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="800">
+            </div>
+        </div>
+
+        <div class="main-content">
+        <div class="visualization">
+            <!-- Digit Groups Display -->
+            <div class="section-title">Number Groups</div>
+            <div class="digit-groups" id="digitGroups"></div>
+
+            <!-- Current Group Decomposition -->
+            <div class="section-title">Helper Decomposition</div>
+            <div class="decomposition" id="decomposition">
+                <span class="empty-text">Click Step or Play to begin</span>
+            </div>
+
+            <!-- Lookup Tables -->
+            <div class="lookup-section">
+                <div class="lookup-container">
+                    <div class="section-title">BELOW_TWENTY</div>
+                    <div class="lookup-table" id="belowTwentyTable"></div>
+                </div>
+                <div class="lookup-container">
+                    <div class="section-title">TENS</div>
+                    <div class="lookup-table" id="tensTable"></div>
+                </div>
+            </div>
+
+            <!-- Result String -->
+            <div class="section-title">Result</div>
+            <div class="result-display" id="resultDisplay">
+                <span class="empty-text">-</span>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-box">
+                    <h3>Input</h3>
+                    <div class="info-value" id="inputNumValue">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Current Scale</h3>
+                    <div class="info-value" id="currentScaleValue">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Group Value</h3>
+                    <div class="info-value" id="groupValueValue">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Groups Left</h3>
+                    <div class="info-value" id="groupsLeftValue">-</div>
+                </div>
+            </div>
+
+            <div class="status" id="status">
+                Click "Step" or "Play" to start the visualization
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color group-ones-legend"></div>
+                    <span>Ones</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color group-thousands-legend"></div>
+                    <span>Thousands</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color group-millions-legend"></div>
+                    <span>Millions</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color group-billions-legend"></div>
+                    <span>Billions</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-panel">
+            <div class="section-title">Python Code</div>
+            <div class="code-line" id="code-0">
+                <span class="code-keyword">def</span> <span class="code-function">numberToWords</span>(num):
+            </div>
+            <div class="code-line" id="code-1">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> num == <span class="code-number">0</span>: <span class="code-keyword">return</span> <span class="code-string">"Zero"</span>
+            </div>
+            <div class="code-line" id="code-2">
+                &nbsp;&nbsp;&nbsp;&nbsp;res = <span class="code-string">""</span>; i = <span class="code-number">0</span>
+            </div>
+            <div class="code-line" id="code-3">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">while</span> num > <span class="code-number">0</span>:
+            </div>
+            <div class="code-line" id="code-4">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;group = num % <span class="code-number">1000</span>
+            </div>
+            <div class="code-line" id="code-5">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> group != <span class="code-number">0</span>:
+            </div>
+            <div class="code-line" id="code-6">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res = <span class="code-function">helper</span>(group) + SCALE[i] + res
+            </div>
+            <div class="code-line" id="code-7">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;num //= <span class="code-number">1000</span>; i += <span class="code-number">1</span>
+            </div>
+            <div class="code-line" id="code-8">
+                <span class="code-keyword">def</span> <span class="code-function">helper</span>(n):
+            </div>
+            <div class="code-line" id="code-9">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> n < <span class="code-number">20</span>: <span class="code-keyword">return</span> BELOW_20[n]
+            </div>
+            <div class="code-line" id="code-10">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> n < <span class="code-number">100</span>: <span class="code-keyword">return</span> TENS[n//<span class="code-number">10</span>] + <span class="code-function">helper</span>(n%<span class="code-number">10</span>)
+            </div>
+            <div class="code-line" id="code-11">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> BELOW_20[n//<span class="code-number">100</span>] + <span class="code-string">"Hundred"</span> + <span class="code-function">helper</span>(n%<span class="code-number">100</span>)
+            </div>
+            <div class="code-line" id="code-12">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> res.<span class="code-function">strip</span>()
+            </div>
+        </div>
+        </div>
+
+        <!-- Complexity Analysis -->
+        <div class="complexity-section">
+            <input type="checkbox" id="complexity-toggle" class="complexity-toggle-input" checked>
+            <label for="complexity-toggle" class="complexity-header">
+                <span class="complexity-title">Complexity Analysis</span>
+                <span class="complexity-icon"></span>
+            </label>
+            <div class="complexity-content">
+                <input type="radio" id="tab-time" name="complexity-tab" class="complexity-tab-input" checked>
+                <input type="radio" id="tab-space" name="complexity-tab" class="complexity-tab-input">
+                <div class="complexity-columns">
+                    <div class="complexity-stats">
+                        <label for="tab-time" class="complexity-item">
+                            <span class="complexity-label">Time Complexity</span>
+                            <span class="complexity-value">O(1)</span>
+                        </label>
+                        <label for="tab-space" class="complexity-item">
+                            <span class="complexity-label">Space Complexity</span>
+                            <span class="complexity-value">O(1)</span>
+                        </label>
+                    </div>
+                    <div class="complexity-explanation">
+                        <div class="complexity-detail time-detail">
+                            <h4 class="detail-title">Time Complexity: <span class="big-o">O(1)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Input is bounded: 0 &le; num &le; 2<sup>31</sup> &minus; 1 (at most 10 digits)</li>
+                                        <li>At most 4 groups of 3 digits (billions, millions, thousands, ones)</li>
+                                        <li>Each group requires at most 3 recursive helper calls (hundreds, tens, ones)</li>
+                                        <li>All lookups into BELOW_TWENTY and TENS are O(1) array access</li>
+                                    </ul>
+                                    <div class="detail-formula">T = 4 groups &times; 3 helper calls = 12 operations max = O(1)</div>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>Because the input is a 32-bit integer, the number of groups and helper calls is bounded by a constant. The algorithm does not scale with input size &mdash; it always performs a fixed number of operations regardless of the specific number.</p>
+                            </div>
+                        </div>
+                        <div class="complexity-detail space-detail">
+                            <h4 class="detail-title">Space Complexity: <span class="big-o">O(1)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Lookup tables (BELOW_TWENTY, TENS, SCALE) are fixed-size constants</li>
+                                        <li>Recursion depth in helper: at most 3 levels (hundreds &rarr; tens &rarr; ones)</li>
+                                        <li>Output string length is bounded (longest: "Two Billion..." ~40 chars)</li>
+                                    </ul>
+                                    <div class="detail-formula">S = O(1) &mdash; all storage is bounded by constants</div>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>The helper function recurses at most 3 levels deep for any 3-digit number. Combined with fixed-size lookup tables, the total memory usage is constant regardless of the input value.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
