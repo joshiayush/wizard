@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKLM4BWJFH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CKLM4BWJFH');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Search - DFS Backtracking</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>Word Search</h1>
+        <p class="description">Find if a word exists in a 2D character grid using DFS with backtracking</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label>Grid (rows separated by ;):</label>
+                <input type="text" id="gridInput" value="A,B,C,E;S,F,C,S;A,D,E,E" placeholder="A,B,C;D,E,F" style="width: 280px;">
+            </div>
+            <div class="input-group">
+                <label>Word:</label>
+                <input type="text" id="wordInput" value="ABCCED" placeholder="WORD" style="width: 100px;">
+            </div>
+            <button class="btn-random" id="randomBtn">Random</button>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label>Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="500">
+            </div>
+        </div>
+
+        <div class="main-content">
+        <div class="visualization">
+            <div class="section-title">Grid</div>
+            <div class="grid-container" id="gridContainer"></div>
+
+            <!-- Word Progress -->
+            <div class="section-title">Word Progress</div>
+            <div class="word-progress" id="wordProgress"></div>
+
+            <div class="info-panel">
+                <div class="info-box">
+                    <h3>Phase</h3>
+                    <div class="info-value small" id="phaseInfo">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Current Cell</h3>
+                    <div class="info-value" id="currentCell">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Matched</h3>
+                    <div class="info-value small" id="wordMatchInfo">-</div>
+                </div>
+                <div class="info-box">
+                    <h3>Cells Explored</h3>
+                    <div class="info-value" id="cellsExplored">0</div>
+                </div>
+            </div>
+
+            <div class="stack-display">
+                <div class="section-title">DFS Path</div>
+                <div class="queue" id="pathDisplay">
+                    <span class="empty-text">Empty</span>
+                </div>
+            </div>
+
+            <div class="status" id="status">
+                Click "Step" or "Play" to start the visualization
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color default-cell"></div>
+                    <span>Default</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color scanning-cell"></div>
+                    <span>Scanning</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color path-cell"></div>
+                    <span>DFS Path</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color current-cell"></div>
+                    <span>Current</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color found-cell"></div>
+                    <span>Found</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color backtrack-cell"></div>
+                    <span>Backtrack</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="code-panel">
+            <div class="section-title">Python Code</div>
+            <div class="code-line" id="code-0">
+                <span class="code-keyword">def</span> <span class="code-function">exist</span>(board, word):
+            </div>
+            <div class="code-line" id="code-1">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> <span class="code-variable">i</span> <span class="code-keyword">in</span> <span class="code-function">range</span>(rows):
+            </div>
+            <div class="code-line" id="code-2">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">for</span> <span class="code-variable">j</span> <span class="code-keyword">in</span> <span class="code-function">range</span>(cols):
+            </div>
+            <div class="code-line" id="code-3">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> <span class="code-function">dfs</span>(i, j, <span class="code-number">0</span>): <span class="code-keyword">return</span> <span class="code-keyword">True</span>
+            </div>
+            <div class="code-line" id="code-4">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-keyword">False</span>
+            </div>
+            <div class="code-line" id="code-5">
+                <span class="code-keyword">def</span> <span class="code-function">dfs</span>(r, c, k):
+            </div>
+            <div class="code-line" id="code-6">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> k == <span class="code-function">len</span>(word): <span class="code-keyword">return</span> <span class="code-keyword">True</span>
+            </div>
+            <div class="code-line" id="code-7">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> out_of_bounds <span class="code-keyword">or</span> board[r][c] != word[k]:
+            </div>
+            <div class="code-line" id="code-8">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-keyword">False</span>
+            </div>
+            <div class="code-line" id="code-9">
+                &nbsp;&nbsp;&nbsp;&nbsp;board[r][c] = <span class="code-string">'#'</span> <span class="code-comment"># mark visited</span>
+            </div>
+            <div class="code-line" id="code-10">
+                &nbsp;&nbsp;&nbsp;&nbsp;found = <span class="code-function">dfs</span>(r<span class="code-number">&plusmn;1</span>,c,k+<span class="code-number">1</span>) <span class="code-keyword">or</span> <span class="code-function">dfs</span>(r,c<span class="code-number">&plusmn;1</span>,k+<span class="code-number">1</span>)
+            </div>
+            <div class="code-line" id="code-11">
+                &nbsp;&nbsp;&nbsp;&nbsp;board[r][c] = word[k] <span class="code-comment"># restore</span>
+            </div>
+            <div class="code-line" id="code-12">
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> found
+            </div>
+        </div>
+        </div>
+
+        <!-- Complexity Analysis -->
+        <div class="complexity-section">
+            <input type="checkbox" id="complexity-toggle" class="complexity-toggle-input" checked>
+            <label for="complexity-toggle" class="complexity-header">
+                <span class="complexity-title">Complexity Analysis</span>
+                <span class="complexity-icon"></span>
+            </label>
+            <div class="complexity-content">
+                <input type="radio" id="tab-time" name="complexity-tab" class="complexity-tab-input" checked>
+                <input type="radio" id="tab-space" name="complexity-tab" class="complexity-tab-input">
+                <div class="complexity-columns">
+                    <div class="complexity-stats">
+                        <label for="tab-time" class="complexity-item">
+                            <span class="complexity-label">Time Complexity</span>
+                            <span class="complexity-value">O(N&middot;M&middot;4<sup>L</sup>)</span>
+                        </label>
+                        <label for="tab-space" class="complexity-item">
+                            <span class="complexity-label">Space Complexity</span>
+                            <span class="complexity-value">O(L)</span>
+                        </label>
+                    </div>
+                    <div class="complexity-explanation">
+                        <div class="complexity-detail time-detail">
+                            <h4 class="detail-title">Time Complexity: <span class="big-o">O(N &middot; M &middot; 4<sup>L</sup>)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li><code>N &times; M</code> cells as potential starting positions</li>
+                                        <li>From each starting cell, DFS explores up to 4 directions at each level</li>
+                                        <li>DFS depth is at most <code>L</code> (word length), giving 4<sup>L</sup> branches</li>
+                                        <li>In practice, visited marking prunes most branches to 3 directions</li>
+                                    </ul>
+                                    <div class="detail-formula">T(N, M, L) = N &times; M &times; 4<sup>L</sup></div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>The outer loop tries every cell as a potential word start. From each cell, the DFS branches into at most 4 directions at each character position. The exponential factor 4<sup>L</sup> dominates, but in practice the search tree is heavily pruned by character mismatches and visited-cell checks, making the average case much faster.</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>Backtracking is essential: by restoring cells after exploration, the algorithm allows different starting positions to reuse the same cells in different paths. This correctness guarantee comes at the cost of potentially re-exploring cells across different starting points.</p>
+                            </div>
+                        </div>
+                        <div class="complexity-detail space-detail">
+                            <h4 class="detail-title">Space Complexity: <span class="big-o">O(L)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Recursion stack depth: at most <code>L</code> (word length)</li>
+                                        <li>In-place marking with <code>'#'</code> avoids a separate visited array</li>
+                                        <li>No additional data structures needed beyond the call stack</li>
+                                    </ul>
+                                    <div class="detail-formula">S(L) = O(L) for recursion depth</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>The algorithm modifies the board in-place to mark visited cells, restoring them on backtrack. This means no separate visited set is needed. The only space cost is the recursion stack, which goes at most L levels deep (one level per character in the word).</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>In-place marking is a classic space optimization for grid DFS. By temporarily mutating the input (board[r][c] = '#'), we get O(1) visited tracking per cell. The restore step (board[r][c] = word[k]) ensures the board is unchanged after the function returns.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

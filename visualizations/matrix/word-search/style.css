@@ -1,0 +1,223 @@
+/* Word Search - Algorithm-specific styles */
+
+/* Grid styling */
+.grid-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.grid {
+    display: inline-grid;
+    gap: 3px;
+    background: #333;
+    padding: 3px;
+    border-radius: 8px;
+}
+
+.grid-cell {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    cursor: default;
+    border: 2px solid transparent;
+}
+
+/* Cell states */
+.grid-cell.default {
+    background: #2a2a4a;
+    color: #ddd;
+}
+
+.grid-cell.scanning {
+    background: #3a3a2a;
+    color: #ffaa00;
+    border-color: #ffaa00;
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.4);
+}
+
+.grid-cell.path {
+    background: #1a2a3a;
+    color: #00d9ff;
+    border-color: #00d9ff;
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.4);
+}
+
+.grid-cell.current {
+    background: #2a1a3a;
+    color: #ff79c6;
+    border-color: #ff79c6;
+    box-shadow: 0 0 15px rgba(255, 121, 198, 0.6);
+    animation: pulse 0.5s ease infinite;
+}
+
+.grid-cell.found {
+    background: #1a3a2a;
+    color: #00ff88;
+    border-color: #00ff88;
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
+}
+
+.grid-cell.backtrack {
+    animation: backtrackFlash 0.4s ease forwards;
+}
+
+@keyframes backtrackFlash {
+    0% {
+        background: #3a1a1a;
+        border-color: #ff4444;
+        color: #ff4444;
+        box-shadow: 0 0 15px rgba(255, 68, 68, 0.8);
+    }
+    100% {
+        background: #2a2a4a;
+        border-color: transparent;
+        color: #ddd;
+        box-shadow: none;
+    }
+}
+
+/* Word progress display */
+.word-progress {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin: 15px 0 20px;
+    min-height: 44px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.word-char {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: 'Courier New', monospace;
+    border-radius: 6px;
+    border: 2px solid #444;
+    background: #2a2a4a;
+    color: #888;
+    transition: all 0.3s ease;
+}
+
+.word-char.matched {
+    background: #1a3a2a;
+    color: #00ff88;
+    border-color: #00ff88;
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+}
+
+.word-char.active {
+    background: #3a3a2a;
+    color: #ffaa00;
+    border-color: #ffaa00;
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.4);
+    animation: pulse 0.5s ease infinite;
+}
+
+/* Stack/Queue display */
+.stack-display {
+    margin: 20px 0;
+}
+
+.queue {
+    min-height: 50px;
+    background: #2a2a4a;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.queue-item {
+    background: #3a3a5a;
+    border: 1px solid #5a5a7a;
+    color: #00d9ff;
+}
+
+.empty-text {
+    color: #666;
+}
+
+/* Info panel layout */
+.info-panel {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Legend colors */
+.legend-color.default-cell {
+    background: #2a2a4a;
+    border-color: #444;
+}
+
+.legend-color.scanning-cell {
+    background: #3a3a2a;
+    border-color: #ffaa00;
+}
+
+.legend-color.path-cell {
+    background: #1a2a3a;
+    border-color: #00d9ff;
+}
+
+.legend-color.current-cell {
+    background: #2a1a3a;
+    border-color: #ff79c6;
+}
+
+.legend-color.found-cell {
+    background: #1a3a2a;
+    border-color: #00ff88;
+}
+
+.legend-color.backtrack-cell {
+    background: #3a1a1a;
+    border-color: #ff4444;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(255, 121, 198, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 121, 198, 0.8);
+    }
+}
+
+/* Ripple effect for DFS */
+@keyframes ripple {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.ripple {
+    animation: ripple 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-cell {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+
+    .word-char {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+}

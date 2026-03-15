@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKLM4BWJFH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CKLM4BWJFH');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BPE Tokenizer</title>
+    <link rel="stylesheet" href="../../shared/css/main.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../" class="back-link">&larr; Back to all algorithms</a>
+        <h1>BPE Tokenizer</h1>
+        <p class="description">Byte Pair Encoding: iteratively merge the most frequent byte pairs into new tokens</p>
+
+        <div class="controls">
+            <div class="input-group">
+                <label for="textInput">Text:</label>
+                <textarea id="textInput" rows="2" placeholder="Enter text to tokenize...">the cat sat on the mat the cat</textarea>
+            </div>
+            <div class="input-group">
+                <label for="vocabSizeInput">Vocab Size:</label>
+                <input type="number" id="vocabSizeInput" value="260" min="257" max="512">
+            </div>
+            <button class="btn-primary" id="resetBtn">Reset</button>
+            <button class="btn-secondary" id="stepBtn">Step</button>
+            <button class="btn-success" id="playBtn">Play</button>
+            <div class="speed-control">
+                <label for="speedSlider">Speed:</label>
+                <input type="range" id="speedSlider" min="100" max="2000" value="800">
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="visualization">
+                <!-- Token IDs Sequence -->
+                <div class="section-title">Token IDs</div>
+                <div class="ids-container" id="idsDisplay">
+                    <span class="empty-text">Click Step or Play to start</span>
+                </div>
+
+                <!-- Pair Frequencies -->
+                <div class="pair-stats-container">
+                    <div class="section-title">Pair Frequencies</div>
+                    <div class="pair-stats" id="pairStatsDisplay">
+                        <span class="empty-text">-</span>
+                    </div>
+                </div>
+
+                <!-- Merge Table -->
+                <div class="merge-table-container">
+                    <div class="section-title">Merge Table</div>
+                    <div class="merge-table" id="mergeTableDisplay">
+                        <span class="empty-text">No merges yet</span>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="info-panel">
+                    <div class="info-box">
+                        <h3>Phase</h3>
+                        <div class="info-value small" id="phaseValue">-</div>
+                    </div>
+                    <div class="info-box">
+                        <h3>Merges Done</h3>
+                        <div class="info-value" id="mergesValue">0</div>
+                    </div>
+                    <div class="info-box">
+                        <h3>Token Count</h3>
+                        <div class="info-value" id="tokenCountValue">-</div>
+                    </div>
+                    <div class="info-box">
+                        <h3>Compression</h3>
+                        <div class="info-value" id="compressionValue">-</div>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="status" id="status">
+                    Click "Step" or "Play" to start the visualization
+                </div>
+
+                <!-- Legend -->
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color current"></div>
+                        <span>Best Pair</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color found"></div>
+                        <span>Merged Token</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color highlight"></div>
+                        <span>Pair Highlight</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Token Output + Code -->
+            <div class="code-panel">
+                <!-- Token Count -->
+                <div class="token-count-header">
+                    <span class="token-count-label">Token count</span>
+                    <span class="token-count-value" id="tokenCountHeader">-</span>
+                </div>
+
+                <!-- Colorized Inline Text -->
+                <div class="colorized-text-box" id="colorizedTextDisplay">
+                    <span class="empty-text">Tokens will appear here after processing</span>
+                </div>
+
+                <!-- Token IDs -->
+                <div class="token-ids-box" id="tokenIdsDisplay">
+                    <span class="empty-text">Token IDs will appear here</span>
+                </div>
+
+                <!-- Python Pseudocode -->
+                <h3>Python Code</h3>
+                <div class="code-line" id="code-0">
+                    <span class="code-comment"># --- TRAIN ---</span>
+                </div>
+                <div class="code-line" id="code-1">
+                    <span class="code-variable">ids</span> = <span class="code-function">list</span>(text.<span class="code-function">encode</span>(<span class="code-string">"utf-8"</span>))
+                </div>
+                <div class="code-line" id="code-2">
+                    <span class="code-keyword">for</span> <span class="code-variable">i</span> <span class="code-keyword">in</span> <span class="code-function">range</span>(<span class="code-variable">n_merges</span>):
+                </div>
+                <div class="code-line" id="code-3">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">stats</span> = <span class="code-function">get_pair_stats</span>(<span class="code-variable">ids</span>)
+                </div>
+                <div class="code-line" id="code-4">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">best</span> = <span class="code-function">max</span>(<span class="code-variable">stats</span>, <span class="code-variable">key</span>=stats.get)
+                </div>
+                <div class="code-line" id="code-5">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">idx</span> = <span class="code-number">256</span> + <span class="code-variable">i</span>
+                </div>
+                <div class="code-line" id="code-6">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">ids</span> = <span class="code-function">merge_pair</span>(<span class="code-variable">ids</span>, <span class="code-variable">best</span>, <span class="code-variable">idx</span>)
+                </div>
+                <div class="code-line" id="code-7">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">merges</span>[<span class="code-variable">best</span>] = <span class="code-variable">idx</span>
+                </div>
+                <div class="code-line" id="code-8">
+                    <span class="code-comment"># --- ENCODE ---</span>
+                </div>
+                <div class="code-line" id="code-9">
+                    <span class="code-variable">ids</span> = <span class="code-function">list</span>(text.<span class="code-function">encode</span>(<span class="code-string">"utf-8"</span>))
+                </div>
+                <div class="code-line" id="code-10">
+                    <span class="code-keyword">while</span> <span class="code-function">len</span>(<span class="code-variable">ids</span>) >= <span class="code-number">2</span>:
+                </div>
+                <div class="code-line" id="code-11">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">pair</span> = <span class="code-function">min</span>(<span class="code-variable">stats</span>, <span class="code-variable">key</span>=merges.get)
+                </div>
+                <div class="code-line" id="code-12">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> <span class="code-variable">pair</span> <span class="code-keyword">not in</span> <span class="code-variable">merges</span>: <span class="code-keyword">break</span>
+                </div>
+                <div class="code-line" id="code-13">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-variable">ids</span> = <span class="code-function">merge_pair</span>(<span class="code-variable">ids</span>, <span class="code-variable">pair</span>, <span class="code-variable">merges</span>[<span class="code-variable">pair</span>])
+                </div>
+            </div>
+        </div>
+
+        <!-- Complexity Analysis -->
+        <div class="complexity-section">
+            <input type="checkbox" id="complexity-toggle" class="complexity-toggle-input" checked>
+            <label for="complexity-toggle" class="complexity-header">
+                <span class="complexity-title">Complexity Analysis</span>
+                <span class="complexity-icon"></span>
+            </label>
+            <div class="complexity-content">
+                <input type="radio" id="tab-time" name="complexity-tab" class="complexity-tab-input" checked>
+                <input type="radio" id="tab-space" name="complexity-tab" class="complexity-tab-input">
+                <div class="complexity-columns">
+                    <div class="complexity-stats">
+                        <label for="tab-time" class="complexity-item">
+                            <span class="complexity-label">Time Complexity</span>
+                            <span class="complexity-value">O(m &middot; n)</span>
+                        </label>
+                        <label for="tab-space" class="complexity-item">
+                            <span class="complexity-label">Space Complexity</span>
+                            <span class="complexity-value">O(V)</span>
+                        </label>
+                    </div>
+                    <div class="complexity-explanation">
+                        <div class="complexity-detail time-detail">
+                            <h4 class="detail-title">Time Complexity: <span class="big-o">O(m &middot; n)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Training Phase</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li><code>m = vocab_size - 256</code> merge iterations</li>
+                                        <li>Each iteration scans the entire ID sequence of length n to count pairs: O(n)</li>
+                                        <li>Finding the max-frequency pair: O(n) over unique pairs</li>
+                                        <li>Merging all occurrences of the best pair: O(n) single pass</li>
+                                    </ul>
+                                    <div class="detail-formula">T_train(m, n) = m &times; O(n) = O(m &middot; n)</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Encoding Phase</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>At most m merge operations applied sequentially</li>
+                                        <li>Each merge scans the current ID sequence: O(n)</li>
+                                        <li>The sequence shrinks with each merge, but worst case remains O(n)</li>
+                                    </ul>
+                                    <div class="detail-formula">T_encode(m, n) = m &times; O(n) = O(m &middot; n)</div>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>BPE's greedy merge strategy ensures that each iteration reduces the sequence length, making later iterations faster in practice. The total work across all iterations is often closer to O(n log n) than the worst-case O(m &middot; n).</p>
+                            </div>
+                        </div>
+                        <div class="complexity-detail space-detail">
+                            <h4 class="detail-title">Space Complexity: <span class="big-o">O(V)</span></h4>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Breakdown</div>
+                                <div class="detail-content">
+                                    <ul class="detail-list">
+                                        <li>Vocabulary table: V = vocab_size entries mapping ID &rarr; byte sequence: O(V)</li>
+                                        <li>Merge table: m = V - 256 entries mapping (pair) &rarr; new ID: O(m)</li>
+                                        <li>Token ID sequence: O(n), shrinks as merges are applied</li>
+                                        <li>Pair statistics dictionary: O(n) unique pairs at most</li>
+                                    </ul>
+                                    <div class="detail-formula">S(V, n) = O(V + n) = O(V) when V &ge; n</div>
+                                </div>
+                            </div>
+                            <div class="detail-section">
+                                <div class="detail-section-title">Mathematical Intuition</div>
+                                <div class="detail-content">
+                                    <p>The vocabulary grows by exactly one entry per merge iteration (from 256 base bytes to vocab_size). Each vocabulary entry stores the concatenation of two existing entries' byte sequences, so the total byte storage across all entries is bounded by O(V &middot; max_token_length).</p>
+                                </div>
+                            </div>
+                            <div class="detail-insight">
+                                <span class="detail-insight-label">Key Insight</span>
+                                <p>BPE achieves compression by trading space (a larger vocabulary) for shorter sequences. The merge table is the "dictionary" that enables this trade-off &mdash; it compactly encodes how to decompose any token back to raw bytes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/js/visualizer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
