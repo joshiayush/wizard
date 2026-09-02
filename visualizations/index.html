@@ -804,6 +804,51 @@
                 </div>
             </div>
 
+            <!-- Neural Network -->
+            <div class="category">
+                <h2><span class="category-icon">◯</span> Neural Network</h2>
+                <div class="algorithms">
+                    <a href="neural-network/forward-backward/index.html" class="algo-card">
+                        <div class="algo-content">
+                            <h3>How a Neural Network Learns</h3>
+                            <p>Forward pass, loss, and backprop chain rule on a tiny 2→2→1 network with real numbers.</p>
+                            <span class="algo-tag">Chain Rule</span>
+                        </div>
+                        <div class="algo-svg">
+                            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Input nodes -->
+                                <circle cx="14" cy="18" r="8" fill="#1e2a4a" stroke="#5b8def" stroke-width="1.5"/>
+                                <text x="14" y="22" fill="#5b8def" font-size="7" text-anchor="middle">x₁</text>
+                                <circle cx="14" cy="42" r="8" fill="#1e2a4a" stroke="#5b8def" stroke-width="1.5"/>
+                                <text x="14" y="46" fill="#5b8def" font-size="7" text-anchor="middle">x₂</text>
+                                <!-- Hidden nodes -->
+                                <circle cx="40" cy="18" r="8" fill="#1a2a3a" stroke="#00d9ff" stroke-width="1.5" class="animate-on-hover"/>
+                                <text x="40" y="22" fill="#00d9ff" font-size="6" text-anchor="middle">h₁</text>
+                                <circle cx="40" cy="42" r="8" fill="#1a2a3a" stroke="#00d9ff" stroke-width="1.5"/>
+                                <text x="40" y="46" fill="#00d9ff" font-size="6" text-anchor="middle">h₂</text>
+                                <!-- Output -->
+                                <circle cx="66" cy="30" r="9" fill="#1a2a2a" stroke="#ff79c6" stroke-width="1.5"/>
+                                <text x="66" y="34" fill="#ff79c6" font-size="7" text-anchor="middle">ŷ</text>
+                                <!-- Edges forward -->
+                                <line x1="22" y1="18" x2="32" y2="18" stroke="#00d9ff" stroke-width="1.2"/>
+                                <line x1="22" y1="42" x2="32" y2="42" stroke="#00d9ff" stroke-width="1.2"/>
+                                <line x1="22" y1="18" x2="32" y2="42" stroke="#00d9ff" stroke-width="1" opacity="0.5"/>
+                                <line x1="22" y1="42" x2="32" y2="18" stroke="#00d9ff" stroke-width="1" opacity="0.5"/>
+                                <line x1="48" y1="18" x2="57" y2="30" stroke="#ff79c6" stroke-width="1.2"/>
+                                <line x1="48" y1="42" x2="57" y2="30" stroke="#ff79c6" stroke-width="1.2"/>
+                                <!-- Loss badge -->
+                                <rect x="58" y="52" width="22" height="14" rx="4" fill="#3a2a1a" stroke="#ffd700" stroke-width="1"/>
+                                <text x="69" y="62" fill="#ffd700" font-size="6" text-anchor="middle">L</text>
+                                <path d="M66 39 L66 52" stroke="#ffd700" stroke-width="1" stroke-dasharray="2,2"/>
+                                <!-- Backward dashed arrows -->
+                                <path d="M57 34 L48 42" stroke="#ff79c6" stroke-width="1" stroke-dasharray="2,2" marker-end="none"/>
+                                <path d="M57 30 L48 18" stroke="#ff79c6" stroke-width="1" stroke-dasharray="2,2"/>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
             <!-- Bit Manipulation -->
             <div class="category">
                 <h2><span class="category-icon">01</span> Bit Manipulation</h2>
